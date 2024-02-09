@@ -33,7 +33,7 @@ def create_db_from_sql(sql_file_path):
 
 @reset_DB_bp.route('/reset_DB', methods=["POST"])
 def show_tables():
-    create_db_from_sql('Flask/sql/init.sql')  # 最初にデータベースをリセットして初期化
+    create_db_from_sql('sql/init.sql')  # 最初にデータベースをリセットして初期化
 
     conn = get_db_connection()  # リセット後のデータベースに接続
     cur = conn.cursor()
