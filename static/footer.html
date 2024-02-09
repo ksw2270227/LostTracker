@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>サイトのタイトル</title>
+  <meta name="description" content="サイトの説明文">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* フッターを画面幅全体に拡張 */
+}
+
+.main-container {
+  display: flex;
+  justify-content: center; /* 子要素を中央に揃えます */
+  align-items: center;
+  width: 100%; /* コンテナを画面幅全体に拡張 */
+  /* padding: 15px; */
+  border-radius: 10px;
+  position: relative; /* 相対位置を設定 */
+}
+
+.main {
+  position: absolute; /* 絶対位置を設定 */
+  left: 50%; /* 要素の左端をコンテナの中央に配置 */
+  transform: translateX(-50%); /* 要素を左に半分移動して中央揃えに */
+}
+
+
+
+  </style>
+</head>
+  
+<body>
+  <footer>
+    <div class="main-container">
+      <span class="main">&copy; 2023 groupF</span>
+    </div>
+  </footer>
+</body>
+</html>

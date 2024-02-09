@@ -1,0 +1,197 @@
+<!-- マイページ -->
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>マイページ</title>
+        <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f5f5f5;
+                margin: 0;
+                padding: 0;
+            }
+    
+            .login-container {
+                width: 470px;
+                margin: 20px auto;
+                background-color: #fff;
+                padding: 20px; 
+                border-radius: 8px; 
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+    
+            table {
+                border-collapse: collapse;
+                border-spacing: 0 10px;
+                width: 100%;
+                margin-top: 20px; /* 調整されたトップのマージン */
+                margin-bottom: 30px; /* 追加されたボトムのマージン */
+                margin-left: auto;
+                margin-right: auto;
+            }
+    
+            h2 {
+                text-align: center;
+            }
+            
+            tr {
+                border: 1px solid #3d3a3a;
+            }
+    
+            td {
+                padding: 10px;
+                text-align: left;
+            }
+    
+            .buttons{
+                /* background-color: #e0e0e0; */
+                padding: 20px;
+                position: relative;
+                bottom: 50px;
+            }
+    
+            button {
+                background-color: #3498db;
+                color: white;
+                min-width: 120px;
+                margin: 20px;
+                display: block;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                font-size: 20px;
+                font-weight: bold;
+            }
+    
+            button:hover {
+                background-color: #2980b9;
+            }
+        </style>
+    </head><head>
+        <meta charset="UTF-8">
+        <title>マイページ</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f5f5f5;
+                margin: 0;
+                padding: 0;
+            }
+    
+            .login-container {
+                width: 470px;
+                margin: 20px auto;
+                background-color: #fff;
+                padding: 20px; 
+                border-radius: 8px; 
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+    
+            table {
+                border-collapse: collapse;
+                border-spacing: 0 10px;
+                width: 100%;
+                margin-top: 20px; /* 調整されたトップのマージン */
+                margin-bottom: 30px; /* 追加されたボトムのマージン */
+                margin-left: auto;
+                margin-right: auto;
+            }
+    
+            h2 {
+                text-align: center;
+            }
+            
+            tr {
+                border: 1px solid #3d3a3a;
+            }
+    
+            td {
+                padding: 10px;
+                text-align: left;
+            }
+    
+            .buttons{
+                /* background-color: #e0e0e0; */
+                padding: 20px;
+                position: relative;
+                bottom: 50px;
+            }
+    
+            button {
+                background-color: #3498db;
+                color: white;
+                min-width: 120px;
+                margin: 20px;
+                display: block;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                font-size: 20px;
+                font-weight: bold;
+            }
+    
+            button:hover {
+                background-color: #2980b9;
+            }
+        </style>
+    </head>
+<body>
+    {% include 'header.html' %}
+
+    <a href="/index" class="backButton">戻る</a>
+    <div class="login-container">
+        <h2>マイページ</h2>
+
+        <table>
+            <tr>
+                <td>名前</td>
+                <td>{{ user_info[2] }}</td>  <!-- user_infoから名前を表示 -->
+            </tr>
+            <tr>
+                <td>電話番号</td>
+                <td>{{ user_info[3] }}</td>  <!-- user_infoから電話番号を表示 -->
+            </tr>
+            <tr>
+                <td>メールアドレス</td>
+                <td>{{ user_info[4] }}</td>  <!-- user_infoからメールアドレスを表示ll -->
+            </tr>
+            <tr>
+                <td>パスワード</td>
+                <td>********</td>
+            </tr>
+            <tr>
+                <td>年齢</td>
+                <td>{{ user_info[6] }}歳</td>
+            </tr>
+            <tr>
+                <td>性別</td>
+                <td>{{ user_info[7] }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="buttons">
+        <a href="/mypagechangescreen">
+            <button class="changeButton">変更</button>
+        </a>
+    </div>
+
+    <div class="buttons">
+        <form action="/withdrawal" method="post" onsubmit="return confirm('本当に退会しますか？');">
+            <button type="submit" class="withdrawalButton">退会</button>
+        </form>
+    </div>
+
+    <div id="footer"></div>
+
+    <script>
+
+        fetch("./static/footer.html")
+        .then((response) => response.text())
+        .then((data) => document.querySelector("#footer").innerHTML = data);
+    </script>
+    <script src="./static/header.js"></script>
+</body>
+</html>

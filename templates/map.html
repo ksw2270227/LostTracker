@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>マップ</title>
+  <link rel="stylesheet" type="text/css" href="static/map.css">
+  <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQNqTzEy70KGNqJm_DIy77FkmPSQwwXYk&callback=initMap"></script>
+</head>
+<body>
+  <script type="text/javascript">
+    var currentUserId = "{{ session['user_id'] }}";
+  </script>
+  {% include 'header.html' %}
+  <div id="content">
+    <a href="/index" class="backButton">戻る</a>
+    <!-- ユーザー情報更新ボタン  -->
+
+    <div id="map"></div>
+    
+    <input type="hidden" id="latitude" value="{{ latitude }}">
+    <input type="hidden" id="longitude" value="{{ longitude }}">
+    <input type="hidden" id="login_user_id" value="{{ login_user_id }}">
+  </div>
+
+  <div class="back">
+    <select class="sub1">
+      <option value="">自分の状況</option>
+      <option value="通常">通常</option>
+      <option value="待機">待機</option>
+      <option value="迷子">迷子</option>
+      <option value="緊急">緊急</option>
+    </select>
+
+    <div class="sub2">
+      <span>集合ルート</span>
+      <button class="create-button">作成</button>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+
+  <!-- Google Maps APIの読み込み -->
+
+
+<!-- map.js ファイルの読み込み -->
+<script src="./static/map.js"></script>
+<script src="./static/header.js"></script>
+  <script>
+      // フッターを動的に読み込む
+
+      fetch("./static/footer.html")
+          .then((response) => response.text())
+          .then((data) => document.querySelector("#footer").innerHTML = data);
+  </script>
+  <!-- map.js ファイルの読み込み -->
+</body>
+</html>

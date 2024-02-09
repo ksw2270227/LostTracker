@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>URLリスト</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" href="/static/favicon_dog.ico" type="image/x-icon">
+    <style>
+/* 透明なテーブル */
+.transparent-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* テーブルの行 */
+.transparent-table tbody tr {
+    border-bottom: 1px solid #ccc; /* 行の下に罫線を表示 */
+}
+
+/* リンクセル */
+.link-cell {
+    padding: 1px; /* セルの余白 */
+}
+
+/* カスタムリンクのスタイル */
+.custom-link {
+    color: purple; /* 未訪問のリンクの色を青に設定 */
+    font-weight: bold; /* リンクを太字にする */
+    text-decoration: none; /* 下線を削除 */
+    position: relative; /* 相対位置指定 */
+}
+
+/* ホバー時のスタイル */
+.custom-link:hover {
+    text-decoration: none; /* ホバー時に下線を削除 */
+    border-bottom: 1px solid blue; /* ホバー時にボーダーを下線として追加 */
+}
+
+/* 訪問済みのリンク */
+.custom-link:visited {
+    color: blue; /* 訪問済みのリンクの色を紫に設定 */
+}
+
+/* エンドポイントセル */
+.endpoint-cell {
+    padding: 1px; /* セルの余白 */
+    font-style: italic; /* エンドポイント情報を斜体にする */
+}
+
+/* ページのコンテナに対するスタイル */
+.container {
+    max-height: 100vh; /* コンテンツの最大高さを画面の高さに合わせる */
+    overflow-y: auto; /* コンテンツが画面をはみ出た場合にスクロールバーを表示 */
+}
+
+    </style>
+</head>
+<body>
+    <div id="popup-message" style="display:none; position:fixed; bottom:20px; right:20px; padding:10px; background-color:lightblue; border:1px solid #000;"></div>
+    <button id="auto-login-btn">クリックで自動にログイン</button>
+    <button id="auto-logout-btn">クリックで自動にログアウト</button>
+    <button id="reset-db-btn">データベースをリセット</button><br>
+
+
+    <!-- ログイン情報の表示 -->
+    <a id="login-info">
+        {% if user_name and user_id %}
+            ログイン中: {{ user_name }} - user_id = {{ user_id }}
+        {% else %}
+            ログインしていません
+        {% endif %}
+    </a>
+    <a>  || Shift + F5で更新</a><br>
+
+    <!-- <ul>
+        {% for url in urls %}
+            <li><a href="{{ url.rule }}">{{ url.rule }}</a> ({{ url.endpoint }})</li>
+        {% endfor %}
+    </ul> -->
+
+    <!-- <ul>
+        {% for url in urls %}
+            <li><a href="{{ url.rule }}" class="custom-link">{{ url.rule }}</a> ({{ url.endpoint }})</li>
+        {% endfor %}
+    </ul> -->
+    
+    <table class="transparent-table">
+        <tbody>
+            {% for url in urls %}
+                <tr>
+                    <td class="link-cell"><a href="{{ url.rule }}" class="custom-link">{{ url.rule }}</a></td>
+                    <td class="endpoint-cell">{{ url.endpoint }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <script>
+        $(document).ready(function() {
+            $("#auto-login-btn").click(function() {
+                $.post("/auto-login", function(data) {
+                    $("#login-info").text("ログイン中: " + data.user_name + " - user_id = " + data.user_id);
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+    $("#auto-login-btn").click(function() {
+        $.post("/auto-login", function(data) {
+            // ログイン情報を更新
+            $("#login-info").text("ログイン中: " + data.user_name + " - user_id = " + data.user_id);
+
+            // ポップアップにメッセージを表示
+            $("#popup-message").text(data.message || "ログインに成功しました。").fadeIn();
+
+            // 2秒後にポップアップを非表示にする
+            setTimeout(function() {
+                $("#popup-message").fadeOut();
+            }, 2000);
+        });
+    });
+});
+
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#reset-db-btn").click(function() {
+                $.post("/reset_DB", function(data) {
+                    // ポップアップにメッセージを表示
+                    $("#popup-message").text(data.message || "デフォルトのメッセージ").fadeIn();
+                    // ログイン情報の表示を変更
+                    
+                    setTimeout(function() {
+                        $("#popup-message").fadeOut();
+                    }, 2000);
+
+                    
+                    
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#auto-logout-btn").click(function() {
+                $.post("/autologout", function(data) {
+                    // ポップアップにメッセージを表示
+                    $("#popup-message").text(data.message || "ログアウトに成功しました。").fadeIn();
+    
+                    // 2秒後にポップアップを非表示にする
+                    setTimeout(function() {
+                        $("#popup-message").fadeOut();
+                    }, 2000);
+
+                    // ログイン情報の表示を変更
+                    $("#login-info").text("ログインしていません");
+                });
+            });
+        });
+    </script>
+    
+    
+</body>
+</html>

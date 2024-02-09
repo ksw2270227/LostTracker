@@ -1,0 +1,200 @@
+<!-- group.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+    <title>グループ画面</title>
+    <style>
+        /* 戻るリンクのスタイル */
+        .custom-link {
+            display: block;
+            margin-top: 2px;
+            /* text-align: center; */
+            text-decoration: none;
+            color: #3498db;
+            transition: color 0.3s;
+        }
+
+
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 0;
+            margin-bottom: 0;
+            background-color: #ffffff;
+        }
+
+        .login-container2 {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            margin-top: 0;
+            margin-bottom: 0;
+            /* display: none; */
+        }
+
+        .backButton {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: #3498db;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .backButton:hover {
+            background-color: #a5a3a3;
+            color: #ffffff;
+        }
+
+        .backButton1 {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #6467ff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            /* float: right; */
+            size: auto;
+        }
+
+        .backButton1:hover {
+            background-color: #a5a3a3;
+            color: #ffffff;
+        }
+
+        h3 {
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    {% include 'header.html' %}
+    <a href="/index" class="backButton">戻る</a>
+    <form class="login-container">
+        <form class="line">
+            <!-- ... (fetch header and footer as before) ... -->
+        {% if group %}
+            <form class="login-container">
+                <h5>グループ名：{{ group['group_name'] }}</h5>
+            </form>
+            <form class="login-container">
+                <h5>グループID：{{ group['group_id'] }}</h5>
+                <!-- <h5>最大人数: {{ group['max_members'] }}</h5> -->
+                <!-- Add other fields as needed -->
+            </form>
+        {% else %}
+            <p>データがありません。</p>
+        {% endif %}
+
+<!-- group.html -->
+
+<!-- ... (前略) ... -->
+
+<form class="login-container">
+    <h3>参加人数 {{ group_count }}/{{ group['max_members'] }} </h3>
+    {% if participants %}
+        {% for participant in participants %}
+            <div style="text-align: center;">
+                {{ participant['full_name'] }}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>参加者がいません。</p>
+    {% endif %}
+</form>
+
+<!-- ... (後略) ... -->
+
+        <div class="login-container2">
+            <a href="#" class="backButton1" id="leaveGroup">グループ退会</a>
+        </div>
+    </form>
+
+    <div id="footer"></div>
+
+    <script>
+        
+
+        fetch("./static/footer1.html")
+            .then((response) => response.text())
+            .then((data) => document.querySelector("#footer").innerHTML = data);
+    </script>
+<script src="./static/header.js"></script>
+
+<script>
+    document.getElementById('leaveGroup').addEventListener('click', function(e) {
+        e.preventDefault(); // デフォルトのリンク動作を防止
+    
+        fetch('/leavegroup', {
+            method: 'POST', // POSTメソッドを指定
+            headers: {
+                'Content-Type': 'application/json',
+                // 必要に応じてCSRFトークンを追加
+            },
+            // body: JSON.stringify({}) // リクエストボディが必要な場合はここに追加
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json(); // レスポンスが成功した場合、JSONを返す
+            }
+            throw new Error('Something went wrong'); // レスポンスが失敗した場合、エラーを投げる
+        })
+        .then(data => {
+            console.log(data); // レスポンスデータをコンソールに出力（デバッグ用）
+            window.location.href = '/index'; // 成功した場合、/indexに遷移
+            // もしindex.htmlに遷移したい場合は、window.location.href = 'index.html'; を使用
+        })
+        .catch(error => {
+            console.error('Error:', error); // エラーハンドリング
+        });
+    });
+    </script>
+
+<script>
+    document.getElementById('leaveGroup').addEventListener('click', function(e) {
+        e.preventDefault(); // デフォルトのリンク動作を防止
+    
+        // 確認ダイアログを表示
+        if (confirm("グループから本当に退会しますか？")) {
+            fetch('/leavegroup', {
+                method: 'POST', // POSTメソッドを指定
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 必要に応じてCSRFトークンを追加
+                },
+                // body: JSON.stringify({}) // リクエストボディが必要な場合はここに追加
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json(); // レスポンスが成功した場合、JSONを返す
+                }
+                throw new Error('Something went wrong'); // レスポンスが失敗した場合、エラーを投げる
+            })
+            .then(data => {
+                console.log(data); // レスポンスデータをコンソールに出力（デバッグ用）
+                window.location.href = '/index'; // 成功した場合、/indexに遷移
+                // もしindex.htmlに遷移したい場合は、window.location.href = 'index.html'; を使用
+            })
+            .catch(error => {
+                console.error('Error:', error); // エラーハンドリング
+            });
+        }
+    });
+</script>
+
+
+</body>
+</html>  

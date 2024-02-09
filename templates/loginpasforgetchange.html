@@ -1,0 +1,137 @@
+<!-- ログインパス忘れ変更画面 -->
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ログインパス忘れ変更画面</title>
+    <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+
+    <style>
+        /* CSSスタイル */
+        /* フォーム全体のスタイル */
+        form {
+            width: 450px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* ラベルのスタイル */
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            display: inline-block;
+            width: 30%; /* ラベルの幅を調整 */
+            text-align: left; /* ラベル寄せ */
+            margin-right: 10px; /* ラベルと入力フィールドの間隔 */
+            box-sizing: border-box; /* paddingを含めた全体の幅にする */
+        
+        }
+    
+        /* 入力フィールドとボタンのスタイル */
+        input[type="password"] {
+            width: 60%; /* 入力フィールドの幅を調整 */
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            /* display: block; 要素を縦に積み重ねるためにブロック要素に */
+            margin: 10px auto; /* 水平方向に中央揃え */
+        }
+    
+        /* 送信ボタンのスタイル */
+
+        .sendButton {
+            display: block;
+            width: 30%;
+            padding: 8px 0;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sendButton:hover {
+            background-color: #2980b9;
+        }
+
+        .backButton {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: #3498db;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .backButton:hover {
+            background-color: #a5a3a3;
+            color: #ffffff;
+        }
+
+    </style>
+</head>
+
+<body>
+    {% include 'header.html' %}
+
+    <a href="/index" class="backButton">戻る</a>
+
+    <form id="passchange" action="#" method="post">
+        
+    <label for="nawPasswordInput">新規パスワード</label>
+    <input type="password" id="nawPasswordInput" name="nawPasswordInput" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$">
+
+    <label for="confirmationInput">確認</label>
+    <input type="password" id="confirmationInput" name="confirmationInput" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$">
+
+    <input type="submit" value="登録" class="sendButton">
+    <p id="error-message"></p>
+
+    </form>
+
+    <div id="footer"></div>
+    <script>
+         
+
+            document.getElementById('passchange').addEventListener('submit', function(event) {
+    event.preventDefault(); // フォームのデフォルトの送信を防止
+
+    // 入力されたパスワードとパスワード再確認の値を取得
+    var password = document.getElementById('nawPasswordInput').value;
+    var confirmPassword = document.getElementById('confirmationInput').value;
+
+    if (password !== confirmPassword) {
+            // パスワードが一致しない場合にエラーメッセージを表示
+            var errorElement = document.getElementById('error-message');
+            errorElement.innerText = 'パスワードが一致しません';
+            errorElement.style.color = 'red';
+            return false; // フォーム送信をキャンセル
+        }
+
+    // 送信先のURLにリダイレクトする
+    window.location.href = 'login.html'; // ここに遷移先のURLを指定
+});
+
+
+
+        fetch("./static/footer.html")
+            .then((response) => response.text())
+            .then((data) => document.querySelector("#footer").innerHTML = data);
+    </script>
+    <script src="./static/header.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!-- イベント情報登録画面 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>イベントページ</title>
+    <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+    <link rel="stylesheet" href="../static/style.css">
+    <style>
+        .event-contents {
+            max-width: 80%;
+            min-width: 250px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        input[type="submit"],
+        textarea{
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="datetime-local"]{
+            min-width: 110px;
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        textarea {
+          resize: none; /* ユーザーが手動でリサイズできないようにする */
+        }
+
+        input[type=submit] {
+          display: block;
+          width: 80px;
+          padding: 8px 0;
+          display: block;
+          margin: 0 auto;
+          text-align: center;
+          text-decoration: none;
+          border: none;
+          border-radius: 5px;
+          background-color: #3498db;
+          color: #fff;
+          cursor: pointer;
+          transition: background-color 0.3s;
+
+          margin-bottom: 20px;
+        }
+
+        input[type=submit]:hover {
+          background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+  {% include 'header.html' %}
+
+  <a href="/eventinformation" class="backButton">戻る</a>
+
+  <!-- <button onclick="goBack()" class="cta-button">戻る</button> -->
+
+  <form action="/eventinformation" method="get">
+      <div class="event-contents">
+        <label name="eventNameLabel">
+          <p>イベント名</p>
+          <input type="text" name="eventName" required>
+        </label>
+      </div>
+      <div class="event-contents">
+        <p>期間</p>
+        <label name="durationLabel">
+          <p>開始日時：</p>
+          <input type="datetime-local" name="startEventDuration" required>
+        </label>
+        <label name="durationLabel">
+          <p>終了日時：</p>
+          <input type="datetime-local" name="endEventDuration" required>
+        </label>
+      </div>
+      <div class="event-contents">
+        <label name="locationLabel">
+          <p>場所</p>
+          <input type="text" name="eventLocation" required>
+        </label>
+      </div>
+      <div class="event-contents">
+        <label name="contentLabel">
+          <p>内容</p>
+          <textarea name="eventDescription" cols="65%" rows="20%" required></textarea>
+        </label>
+      </div>
+      <input type="submit" value="登録" class="RegistrationButton">
+  </form>
+
+
+  <div id="footer" class="footer"></div>
+
+  <!-- <script>
+    // 前の画面に戻る関数 ブラウザでやると戻れる
+    function goBack() {
+        window.history.back();
+    }
+  </script> -->
+
+  <!-- JavaScriptを追加 -->
+  <script>
+     
+
+    fetch("footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+  </script>
+
+<script src="./static/header.js"></script>
+
+</body>
+</html>

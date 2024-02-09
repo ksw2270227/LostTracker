@@ -1,0 +1,112 @@
+<!-- ログインパスワード忘れ画面 -->
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ログインパスワード忘れ画面</title>
+    <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+    <style>
+        /* CSSスタイル */
+        /* フォーム全体のスタイル */
+        form {
+            width: 450px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* ラベルのスタイル */
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            display: inline-block;
+            width: 30%; /* ラベルの幅を調整 */
+            text-align: left; /* ラベルを右寄せ */
+            margin-right: 10px; /* ラベルと入力フィールドの間隔 */
+            box-sizing: border-box; /* paddingを含めた全体の幅にする */
+        
+        }
+
+    
+        /* 入力フィールドとボタンのスタイル */
+        input[type="email"] {
+            width: 60%; /* 入力フィールドの幅を調整 */
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            /* display: block; 要素を縦に積み重ねるためにブロック要素に */
+            margin: 10px auto; /* 水平方向に中央揃え */
+        }
+    
+        /* 送信ボタンのスタイル */
+
+        .sendButton {
+            display: block;
+            width: 30%;
+            padding: 8px 0;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sendButton:hover {
+            background-color: #2980b9;
+        }
+
+        /* 戻るボタンのスタイル */
+        .backButton {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: #3498db;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .backButton:hover {
+            background-color: #a5a3a3;
+            color: #ffffff;
+        }
+
+    </style>
+</head>
+
+<body>
+    {% include 'header.html' %}
+
+    <a href="/index" class="backButton">戻る</a>
+
+    <form id="emailForm" action="/loginpasforgetchange" method="post">
+
+        <label for="emailAddressInput">メールアドレス</label>
+        <input type="email" id="emailAddressInput" name="emailAddressInput" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
+        <input type="submit" value="送信" class="sendButton">
+    </form>
+
+    <div id="footer"></div>
+    <script>
+         
+
+        fetch("./static/footer.html")
+            .then((response) => response.text())
+            .then((data) => document.querySelector("#footer").innerHTML = data);
+    </script>
+
+<script src="./static/header.js"></script>
+</body>
+
+</html>

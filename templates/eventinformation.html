@@ -1,0 +1,172 @@
+<!-- イベント情報 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>イベントページ</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+    <style>
+        /* 全体 */
+        .event-container {
+          display: flex; /* Flexコンテナを作成 */
+        }
+
+        /* 左のボタン */
+        .buttons{
+            /* background-color: #e0e0e0; */
+            padding: 20px;
+        }
+
+        button {
+            min-width: 120px;
+            margin: 0 0 15px 10px;
+            display: block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        button:hover {
+          background-color: #2980b9;
+        }
+
+
+        /* 右のイベントの内容 */
+        .contents{
+            flex: 8; /* 画面の80% */
+            /* background-color: #f0f0f0; */
+        }
+
+        .event-contents {
+            max-width: 80%;
+            min-width: 250px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+
+    </style>
+</head>
+<body>
+  {% include 'header.html' %}
+
+  <a href="/index" class="backButton">戻る</a>
+
+  <!-- <button onclick="goBack()" class="cta-button">戻る</button> -->
+
+  <div class="event-container">
+    <div class="buttons">
+      <a href="/userlist">
+        <button class="userButton">
+          ユーザー
+        </button>
+      </a>
+      <a href="/eventchange">
+        <button class="changeButton">
+          変更
+        </button>
+      </a>
+      <!-- イベント削除のダイアログが出る -->
+      <button class="deleteButton"  onclick="goDel()">
+        削除
+      </button>
+    </div>
+    
+    <div class="contents">
+      <div class="event-contents">
+        <label name="eventNameLabel">
+          イベント名
+          <p name="eventName">
+            実際のイベントの名前
+          </p>
+        </label>
+      </div>
+      
+      <div class="event-contents">
+        <label name="durationLabel">
+          期間
+          <p name="eventDuration">
+            実際のイベントの期間
+          </p>
+        </label>
+      </div>
+      
+      <div class="event-contents">
+        <label name="locationLabel">
+          場所
+          <p name="eventLocation">
+            実際のイベントの場所
+          </p>
+        </label>
+      </div>
+      
+      <div class="event-contents">
+        <label name="contentLabel">
+          内容
+          <p name="eventDescription">
+            実際のイベントの内容<br>
+            １日目<br>
+            --:00 OOOOOOOO<br>
+            --:00 OOOOOOOO<br>
+            --:00 OOOOOOOO<br>
+            --:00 OOOOOOOO<br>
+            <br>
+            ２日目<br>
+            --:00 OOOOOOOO<br>
+            --:00 OOOOOOOO<br>
+            --:00 OOOOOOOO<br>
+            --:00 OOOOOOOO<br>
+            ........................
+          </p>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer" class="footer"></div>
+
+  <!-- <script>
+    // 前の画面に戻る関数 ブラウザでやると戻れる
+    function goBack() {
+        window.history.back();
+    }
+  </script> -->
+  <script>
+    // イベント退出の確認ダイアログを表示する関数
+    function goDel() {
+        var result = confirm("イベントを削除しますか？");
+  
+        if (result) {
+            // はいを選択した場合の処理
+            window.location.href = 'index.html';
+        } else {
+            // いいえを選択した場合の処理
+            // 何もしない
+        }
+      }
+  </script>
+
+  <!-- JavaScriptを追加 -->
+  <script>
+     
+
+    fetch("footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+  </script>
+
+<script src="./static/header.js"></script>
+
+</body>
+</html>
