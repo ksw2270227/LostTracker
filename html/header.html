@@ -1,0 +1,41 @@
+<!-- ヘッダー -->
+<!DOCTYPE html>
+<html lang="ja">
+  
+<head>
+  <meta charset="UTF-8">
+  <title>サイトのタイトル</title>
+  <meta name="description" content="サイトの説明文">
+  <link rel="stylesheet" href="style.css">
+</head>
+  
+<body>
+  <header>
+    <div class="logo">
+      <a href="index.html">
+      <img src="1logo.png" alt="ロストトラッカー">
+      </a>
+    </div>
+    <div class="hamburger-menu">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    <nav class="menu">
+      <ul>
+        <li><a href="signup.html">新規登録</a></li>
+        <li><a href="login.html">ログイン</a></li>
+        <li><a href="/logout">ログアウト</a></li>
+        <li><a href="#">aaa</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <script>
+    document.querySelector('.hamburger-menu').addEventListener('click', function() {
+      document.querySelector('.menu').classList.toggle('active');
+    });
+  </script>
+  
+</body>
+</html>

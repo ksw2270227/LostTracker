@@ -1,0 +1,71 @@
+<!-- ユーザー情報一覧画面 -->
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザー情報一覧画面</title>
+    <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 0;
+            margin-bottom: 0;
+            background-color: #ffff;
+            width: 400px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    {% include 'header.html' %}
+    <a href="/index" class="backButton">戻る</a>
+
+    <form class="login-container">
+
+        <div style="border: 1px solid black;">
+            名前　　　　　　　　グループ名
+        </div>
+        <div style="border: 1px solid black;">
+            ○○○○　　　　　　　　○○○○
+        </div>
+        <div style="border: 1px solid black;">
+            ○○○○　　　　　　　　○○○○
+        </div>
+        <div style="border: 1px solid black;">
+            ○○○○　　　　　　　　○○○○
+        </div>
+        <div style="border: 1px solid black;">
+            ○○○○　　　　　　　　○○○○
+        </div>
+        <div style="border: 1px solid black;">
+            ○○○○　　　　　　　　○○○○
+        </div>
+        <div style="border: 1px solid black;">
+            ○○○○　　　　　　　　○○○○
+        </div>
+
+    </form>
+
+    <div id="footer"></div>
+    <script>
+         
+
+        fetch("./static/footer.html")
+            .then((response) => response.text())
+            .then((data) => document.querySelector("#footer").innerHTML = data);
+    </script>
+        
+    <script src="./static/header.js"></script>
+
+</body>
+
+</html>

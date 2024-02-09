@@ -1,0 +1,90 @@
+<!-- イベント一覧 -->
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+  table {
+    margin: 20px auto;
+    padding: 2px auto;
+    border-collapse: collapse;
+    border: px solid red;
+    width: 60%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+
+  td, th {
+    text-align: center;
+    padding: 10px;
+    font-weight: normal;
+  }
+
+  tr {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+  }
+
+  tr:first-child td:first-child {
+    border-top-left-radius: 15px; 
+  }
+  
+  table tr:first-child td:last-child {
+    border-top-right-radius: 15px; 
+  }
+  
+  table tr:last-child td:first-child {
+     border-bottom-left-radius: 15px; 
+  }
+  
+  table tr:last-child td:last-child { 
+  border-bottom-right-radius: 15px; 
+  }
+  </style>
+</head>
+
+<body>
+  <div id="header"></div>
+
+  <a href="index.html" class="backButton">戻る</a>
+
+  <!-- <table class ="kkkkkk"> -->
+  <table>
+    <tr>
+      <th>イベント名</th>
+      <th>開催日</th>
+      </tr>
+      <tr>
+        <td>うぃー</td>
+        <td>2222/888/888
+        </td>
+      </tr>
+      <tr>
+        <td>うぇー</td>
+        <td>3333/09/31</td>
+      </tr>
+    </table>
+  <!-- </table> -->
+
+  <div id="footer"></div>
+  <!-- JavaScriptを追加 -->
+  <script>
+    fetch("header.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.querySelector("#header").innerHTML = data;
+
+        // ヘッダーを読み込んだ後にハンバーガーボタンにイベントを設定する
+        document.querySelector('.hamburger-menu').addEventListener('click', function() {
+          document.querySelector('.menu').classList.toggle('active');
+        });
+      });
+
+    fetch("footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+  </script>
+</body>
+
+</html>

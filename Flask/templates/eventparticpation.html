@@ -1,0 +1,169 @@
+<!-- イベント参加 -->
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>イベント参加</title>
+  <link rel="stylesheet" href="./static/style.css">
+  <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+  <style>
+    form {
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      width: 50%;
+      width: 480px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        display: flex;
+        text-align: left; /* ラベルのテキストを右寄せ. */
+      }
+
+    /* ラベルのスタイル */
+    label {
+        margin-bottom: 5px;
+        font-weight: bold;        
+        text-align: left; /* ラベルを右寄せ */
+        margin-right: 10px; /* ラベルと入力フィールドの間隔 */
+        font-weight: bold;
+        width: 30%; /* ラベルの幅を調整 */
+        
+    }
+
+    h2 {
+      text-align:center;
+      margin-bottom: 10px;
+    }
+
+    p{
+      margin-top: 10px;
+    }
+
+
+    /* 入力フィールドとボタンのスタイル */
+    input[type='password'],
+    input[type='text'] {
+      width: 100%; /* 入力フィールドの幅を調整 */
+      padding: 10px; /* 入力フィールドの内側の余白を調整 */
+      border-radius: 10px;
+      font-size: 15px;
+      box-sizing: border-box;
+      float: right;
+      border: 1px solid #ccc;
+    }
+
+    input[type=submit] {
+      display: block;
+      width: 80px;
+      padding: 8px 0;
+      display: block;
+      margin: 0 auto;
+      margin-top: 10px;
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      background-color: #3498db;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    } 
+    
+    input[type=submit]:hover {
+    background-color: #2980b9;
+  }
+
+    /* footerを下に配置 */
+    main {
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 165px);
+            margin: 0;
+        }
+    
+        
+
+    .backButton {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #ffffff;
+      color: #3498db;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+      border: 1px solid transparent; /* 新たに追加 */
+      cursor: pointer; /* 新たに追加 */
+    }
+
+    .backButton:hover {
+      background-color: #a5a3a3;
+      color: #ffffff;
+    }
+
+
+
+  </style>
+</head>
+
+<body>
+  {% include 'header.html' %}
+
+  <!-- <a href="" onclick="goBack()" class="backButton">戻る</a> -->
+
+  <button onclick="goBack()" class="backButton">戻る</button>
+
+  {% if errorid == 1 %}
+  <style>
+    main {
+      min-height: calc(100vh - 257px);
+    }
+  </style>
+        <!-- イベントがない場合 -->
+        <div style="color: red; text-align: center; padding: 20px;">
+            そのイベントIDまたはパスワードは存在しません。</br>再度入力してください。
+        </div>
+  {% endif %}
+
+  <main>
+  <form action="/event" method="post" name="joinevent">
+    <h2>イベント参加</h2>
+    <div class="form-group">
+    <label for="eventidLabel">
+      <p>イベントID</p>
+    </label>
+      <input type="text" id="eventidLabel" name="eventidinput" maxlength="20" required pattern="^[0-9]+$">
+    </div>
+
+    <div class="form-group">
+    <label for="passwordLabel">
+      <p>パスワード</p>
+    </label>
+      <input type="password" id="passwordLabel" name="passwordinput" required pattern="^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$">
+    </div>
+
+    <input type="submit" name="joinButton" value="参加">
+  </form>
+  </main>
+  <div id="footer"></div>
+
+  <!-- JavaScriptを追加 -->
+  <script>
+    // 前の画面に戻る関数
+    function goBack() {
+        window.history.back();
+    }
+
+    fetch("./static/footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+  </script>
+
+<script src="./static/header.js"></script>
+</body>
+</html>

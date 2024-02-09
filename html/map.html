@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>title here</title>
+  <style>
+    #content {
+      position: relative;
+      border: 2px solid #000;
+      padding: 230px;
+      margin: 1px; 
+    }
+
+    .backButton {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      text-decoration: none;
+      padding: 10px;
+      border: 1px solid #000;
+      border-radius: 5px;
+      background-color: #fff;
+    }
+
+    .back {
+      display: flex;
+      justify-content: space-between;
+      height: 100%;
+      gap: 30%;
+      background-color: #fff; /* 背景を白に設定 */
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    .sub1 {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin: 10px 0 10px 10px;
+      width: 30%;
+      height: 100%;
+    }
+
+    .sub2 {
+      float: right;
+      background-color: #fff;
+      padding: 0 20px 0 20px;
+      margin-right: 10px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+
+    .create-button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      margin: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* 地図のスタイル */
+    #map {
+      height: 400px;
+      width: 100%;
+      margin-top: 20px; /* 地図の位置を調整 */
+    }
+  </style>
+</head>
+<body>
+  <div id="header"></div>
+  <div id="content">
+    <a href="index.html" class="backButton">戻る</a>
+    <!-- 地図を表示するためのコンテナ -->
+    <div id="map"></div>
+    <!-- ここにコンテンツ -->
+  </div>
+
+  <div class="back">
+    <select class="sub1">
+      <option value="">自分の状況</option>
+      <option value="normal">通常</option>
+      <option value="waiting">待機</option>
+      <option value="lost">迷子</option>
+      <option value="emergency">緊急</option>
+    </select>
+
+    <div class="sub2">
+      <span>集合ルート</span>
+      <button class="create-button">作成</button>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+
+  <!-- ここでヘッダーとフッターを動的に読み込むスクリプト -->
+  <script>
+    fetch("header.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.querySelector("#header").innerHTML = data;
+        document.querySelector('.hamburger-menu').addEventListener('click', function() {
+          document.querySelector('.menu').classList.toggle('active');
+        });
+      });
+
+    fetch("footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+  </script>
+
+  <!-- Google Maps JavaScript API の読み込み -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQNqTzEy70KGNqJm_DIy77FkmPSQwwXYk&callback=initMap" async defer></script>
+  <script>
+    var map;
+    function initMap() {
+      var userLocation = {lat: -34.397, lng: 150.644}; // ここを適切な緯度経度に置き換える
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: userLocation,
+        zoom: 8
+      });
+      var marker = new google.maps.Marker({
+        position: userLocation,
+        map: map
+      });
+    }
+  </script>
+</body>
+</html>

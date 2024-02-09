@@ -1,0 +1,144 @@
+<!-- イベント画面 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>イベントページ</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 全体 */
+        .event-container {
+            width: 80%;
+            min-width: 500px;
+            margin: 0px auto;
+            padding: 40px;
+        }
+
+        /* タイトル */
+        .event-title {
+            width: 100%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+            font-size: 24px;
+            font-weight: bold;
+            
+        }
+
+        /* 内容 */
+        .event-description {
+            width: 100%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 退出ボタン */
+        .exitEventButton {
+            float: right;
+            display: block;
+            
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .exitEventButton:hover {
+            background-color: #2980b9;
+        }
+
+        /* footerを下に配置 */
+        main {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 169px);
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+  <div id="header"></div>
+
+  <a href="eventparticpation.html" class="backButton">戻る</a>
+
+  <!-- <button onclick="goBack()" class="cta-button">戻る</button> -->
+
+  <main>
+  <div class="event-container">
+    <div class="event-title">
+      <p name="eventText">
+        実際のイベント名
+      </p>
+    </div>
+    <div class="event-description">
+        <p name="scheduleText">
+          実際のイベント内容がここに入ります。<br>詳細な情報や説明などが含まれます。<br><br><br><br><br><br>
+        </p>
+    </div>
+    <a href="index.html" class="exitEventButton" name="exitEventButton">イベント退出</a>
+    <!-- <input type="submit" value="イベント退出" class="exitEventButton"> -->
+    <!--  ダイアログ出てくる　<button class="exitEventButton" onclick="confirmExit()">
+      イベント退出
+    </button> -->
+  </div>
+  </main>
+    
+
+  <div id="footer" class="footer"></div>
+
+  <!-- <script>
+    // 前の画面に戻る関数
+    function goBack() {
+        window.history.back();
+    }
+  </script> -->
+
+  <script>
+    // イベント退出の確認ダイアログを表示する関数
+    function confirmExit() {
+        var result = confirm("イベントを退出しますか？");
+  
+        if (result) {
+            // はいを選択した場合の処理
+            window.location.href = 'index.html';
+        } else {
+            // いいえを選択した場合の処理
+            // 何もしない
+        }
+      }
+  </script>
+
+  
+
+  <!-- JavaScriptを追加 -->
+  <script>
+    fetch("header.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.querySelector("#header").innerHTML = data;
+
+        // ヘッダーを読み込んだ後にハンバーガーボタンにイベントを設定する
+        document.querySelector('.hamburger-menu').addEventListener('click', function () {
+          document.querySelector('.menu').classList.toggle('active');
+        });
+      });
+
+    fetch("footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+  </script>
+
+</body>
+</html>

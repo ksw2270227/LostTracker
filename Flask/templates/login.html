@@ -1,0 +1,197 @@
+<!-- ログイン  -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+  <title>ログイン</title>
+  <style>
+
+    .login-container {
+      /* max-width: 460px; */
+      margin-left: auto;
+      margin-right: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      width: 460px;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      display: flex;
+      text-align: left; /* ラベルのテキストを右寄せ. */
+    }
+
+    .form-group label {
+      width: 30%; /* ラベルの幅を調整 */
+      margin-right: 10px; /* ラベルと入力フィールドの間隔を調整 */
+      font-weight: bold;
+    }
+
+    .form-group input {
+      width: 70%; /* 入力フィールドの幅を調整 */
+      padding: 10px; /* 入力フィールドの内側の余白を調整 */
+      border-radius: 10px;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    .form-group input{
+      float: right;
+      margin-left: 10px;
+      width: 75%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    .sendButton {
+            display: block;
+            width: 30%;
+            padding: 8px 0;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sendButton:hover {
+            background-color: #2980b9;
+        }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      display: block;
+      margin: 0 auto;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .backButton {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #ffffff;
+      color: #3498db;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+
+    .backButton:hover {
+      background-color: #a5a3a3;
+      color: #ffffff;
+    }
+
+    .table-choose {
+      width: 400px;
+      margin: 0 auto;
+    }
+
+    .table-choose td {
+      padding: 10px auto;
+      text-align: center;
+    }
+
+    .table-choose a {
+      text-decoration: none;
+      color: #3498db;
+    }
+
+    .table-choose a:hover {
+      text-decoration: underline;
+    }
+
+    .tabletd1{
+      border-right: 10px solid transparent;
+    }
+
+    .tabletd2 {
+      border-left: 10px solid transparent;
+    }
+  </style>
+</head>
+
+<body>
+  {% include 'header.html' %}
+  {% if test==1 %}
+            <div style="color: red; text-align: center; padding: 20px;">
+              無効なメールアドレスまたはパスワードです。
+            </div>
+  {% endif %}
+  <a href="/index" class="backButton">戻る</a>
+  <div class="login-container">
+    <h2>ログイン</h2>
+    <form action="#" method="post">
+      <div class="form-group">
+        <label for="email_address">メールアドレス</label>
+        <input type="email" id="email_address" name="email_address" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
+      </div>
+
+      <div class="form-group">
+        <label for="password">パスワード</label>
+        <input type="password" id="password" name="password">
+      </div>
+
+      <input type="submit" value="ログイン" class="sendButton">
+
+    </form>
+  </div>
+
+  <table class="table-choose">
+    <tr>
+      <td class="tabletd1"><a href="/signup" >新規登録はこちら</a></td>
+      <td class="tabletd2"><a href="/loginpasforget">パスワードを忘れた場合</a></td>
+    </tr>
+  </table>
+
+  
+  <div id="footer"></div>
+
+  <script>
+     
+
+    fetch("./static/footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+  </script>
+<script src="./static/header.js"></script>
+</body>
+</html>

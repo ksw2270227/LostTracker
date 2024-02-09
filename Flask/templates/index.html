@@ -1,0 +1,66 @@
+<!-- トップページ -->
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>トップページ</title>
+  <meta name="description" content="サイトの説明文">
+  <link rel="stylesheet" href="../static/style.css">
+  <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+  <style>
+
+    main {
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 123px);
+        margin: 0;
+    }
+
+</style>
+</head>
+
+<body>
+  {% include 'header.html' %}
+
+  <!-- コンテンツ -->
+  <main>
+    <!-- {% if user_name and user_id %}
+      <p>ようこそ、{{ user_name }}さん</p>
+      <p>ユーザーID: {{ user_id }} (デバッグ用)</p>
+    {% endif %} -->
+    <section class="hero">
+      <h1>ロストトラッカー</h1>
+      <p>「ロストトラッカー」は、グループの位置情報と安全を一目で確認できるアプリです。<br>仲間とのつながりを深め、イベントの安全を守ります。新しいコミュニティ体験を始めましょう。</p>
+      <p>画像here</p>
+    </section>
+
+    <section class="features">
+      <div class="feature">
+        <h2>グループ</h2>
+        <p>旅行はこちら</p>
+        <a href="/creategroup" class="cta-button">作成</a>
+        <a href="/joingroup" class="cta-button">参加</a>
+      </div>
+      <div class="feature">
+        <h2>イベント</h2>
+        <p>ツアー旅行やスキーはこちら</p>
+        <a href="/eventparticpation" class="cta-button">参加</a>
+      </div>
+      <!-- 他の機能やコンテンツブロックを追加 -->
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <!-- JavaScriptを追加 -->
+  <script>
+    fetch("./static/footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+  </script>
+  <script src="./static/header.js"></script>
+</body>
+
+</html>

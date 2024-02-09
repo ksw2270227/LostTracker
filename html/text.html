@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>フォームデータの取得</title>
+</head>
+
+<body>
+
+    <form id="myForm">
+        <label for="username">ユーザー名:</label>
+        <input type="text" id="username" name="username">
+        <input type="submit" value="送信">
+    </form>
+
+    <script>
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // フォームのデフォルトの動作（ページ遷移）を防止
+
+            // フォームからデータを取得
+            var username = document.getElementById('username').value;
+
+            // 別の画面にデータを表示
+            console.log("送信されたユーザー名は: " + username);
+
+            // ここで他の処理を行うこともできます
+            // 例えば、取得したデータを使って特定の操作を行うなど
+        });
+    </script>
+
+</body>
+
+</html>

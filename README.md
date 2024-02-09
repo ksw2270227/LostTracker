@@ -1,2 +1,4 @@
-# LostTracker
-大原簿記法律専門学校柏校-卒業研究F班-ロストトラッカー
+# GroupF
+卒業研究Fグループ
+
+![Test Image 2](Flask/static/map/another_user.png)

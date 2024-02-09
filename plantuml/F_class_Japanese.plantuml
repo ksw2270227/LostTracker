@@ -1,0 +1,147 @@
+@startuml
+
+class ユーザー {
+    - String ユーザーID
+    - String ユーザー名
+    - String 氏名
+    - String 電話番号
+    - String メールアドレス
+    - String パスワード
+    - Integer 年齢
+    - String 性別
+    - Integer 現在のイベントID
+    - Integer 現在のグループID
+    - String ユーザー状況
+
+    + ユーザー登録(): String
+    + ログイン(): Boolean
+    + ログアウト(): Void
+    + プロフィール更新(): Boolean
+    + プロフィール取得(): ユーザー
+    + アカウント削除(): Boolean
+    + イベント参加(): Boolean
+    + イベント退会(): Boolean
+    + グループ参加(): Boolean
+    + グループ退会(): Boolean
+    + ユーザー状況更新(): Boolean
+    + パスワード変更(): Boolean
+}
+
+class 管理者 {
+    - String ユーザーID
+    - String ユーザー名
+    - String パスワード
+    - String 氏名
+    - String メールアドレス
+
+    + ログイン(): Boolean
+    + ログアウト(): Void
+    + パスワード変更(): Boolean
+    + ユーザー詳細閲覧(): ユーザー
+    + ユーザー詳細削除(): Boolean
+}
+
+class 企業 {
+    - String 企業ID
+    - String 企業名
+    - String 企業パスワード
+    - String 住所
+    - String 電話番号
+
+    + 企業登録(): String
+}
+
+class イベント {
+    - String 企業ID
+    - String イベントID
+    - String イベント名
+    - String パスワード
+    - datetime 開始時刻
+    - datetime 終了時刻
+    - String 場所
+    - String イベント内容
+
+    + イベント作成(): String
+    + イベント更新(): Boolean
+    + イベント削除(): Boolean
+    + イベント詳細取得(): イベント
+}
+
+class 位置データ {
+    - String ユーザーID
+    - Float 緯度
+    - Float 経度
+    - Float 現在の高度
+    - datetime 取得時刻
+    - String ユーザー状況
+
+    + 位置データ更新(): Boolean
+    + 位置データ取得(): 位置データ
+    + ユーザー状況取得() : String
+}
+
+class 位置履歴 {
+    - String ユーザーID
+    - Float 緯度
+    - Float 経度
+    - Float 高度
+    - datetime 取得時刻
+    - String ユーザー状況
+
+    + 位置履歴保存(): Boolean
+    + 位置履歴取得(): List[位置履歴]
+}
+
+class メッセージ {
+    - String メッセージID
+    - String 送信者ユーザーID
+    - String 受信者ユーザーID
+    - String メッセージ内容
+    - datetime 送信時刻
+
+    + メッセージ送信(): Boolean
+    + メッセージ履歴取得(): List[メッセージ]
+}
+
+class グループ {
+    - String グループID
+    - String パスワード
+    - String ユーザーID
+    - datetime 作成日
+    - Integer 最大メンバー数
+    - Integer 現在のメンバー数
+    - String イベントID
+
+    + グループ作成(): String
+    + グループ情報更新(): Boolean
+}
+
+class 企業従業員{
+    - String 企業ID
+    - String ユーザーID
+    - String ユーザー名
+    - String 氏名
+    - String パスワード
+    - String メールアドレス
+
+    + ユーザー登録(): String
+    + ログイン(): Boolean
+    + ログアウト(): Void
+    + パスワード変更(): Boolean
+}
+
+' 関連
+ユーザー "1" -- "0..*" グループ
+ユーザー "1" -- "0..*" イベント
+ユーザー "1" -- "0..*" メッセージ
+ユーザー "1" -- "0..1" 位置データ
+ユーザー "1" -- "0..*" 位置履歴
+
+グループ "0..*" -- "0..*" ユーザー
+グループ "1" -- "0..*" イベント
+
+企業 "1" -- "0..*" イベント
+企業 "1" -- "0..*" 企業従業員
+
+イベント "1" -- "0..*" メッセージ
+@enduml

@@ -1,0 +1,114 @@
+<!-- チャット相手指定画面 -->
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>チャット相手指定画面</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+
+    <style>
+        .table {
+            margin-top: 20px;
+            margin-bottom: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        table {
+            min-width: 350px;
+            background-color: #ffffff;
+            width: 70%;
+            border-collapse: collapse;
+            /* margin: 20px; */
+            border: 1px solid #dddddd; /* 追加：外側のボーダーを設定 */
+
+            /* margin-bottom: 50px; */
+        }
+
+        th, td {
+            min-width: 110px;
+            max-width: 300px;
+            text-align: center;
+            padding: 10px;
+            border-bottom: 1px solid #dddddd; /* 追加：セルの下側にボーダーを設定 */
+        }
+        
+
+        /* 追加：省略表示用のスタイル */
+        .ellipsis {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* footerを下に配置 */
+        main {
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 169px);
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    {% include 'header.html' %}
+    <a href="/abnormalityconfirmation" class="backButton">戻る</a>
+
+    <main>
+    <!-- 最新チャットの履歴は20文字以上になったら....で表示される -->
+    <div class="table">
+        <table>
+            <thead>
+                <tr>
+                    <th>名前</th>
+                    <th>時間</th>
+                    <th>最新チャット</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td><a href="{{ url_for('chat.chat', user_url_id=user.user_id) }}">{{ user.user_name }}</a></td>
+                    <td>{{ user.latest_chat_time }}</td>
+                    <td class="ellipsis">{{ user.latest_chat_content }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script>
+        // JavaScriptを使用して文字数を制御
+        document.addEventListener('DOMContentLoaded', function () {
+            var chatCells = document.querySelectorAll('.ellipsis');
+            chatCells.forEach(function (cell) {
+                var originalText = cell.textContent;
+                if (originalText.length > 20) {
+                    cell.title = originalText; // ツールチップに全文を表示
+                    cell.textContent = originalText.slice(0, 20) + '...'; // 20文字まで表示
+                }
+            });
+        });
+    </script>
+
+    <script>
+         
+
+        fetch("./static/footer.html")
+            .then((response) => response.text())
+            .then((data) => document.querySelector("#footer").innerHTML = data);
+    </script>
+
+<script src="./static/header.js"></script>
+</body>
+
+</html>

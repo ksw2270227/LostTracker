@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SQLite Database Tables</title>
+
+    <style>
+        /* ボタンとテーブルの共通スタイル */
+        button, table {
+            background-color: #f8f8f8; /* 薄い灰色の背景 */
+            margin-bottom: 10px;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        /* 個別のテーブルスタイル */
+        #usersTable { background-color: #fff0f0; } /* 非常に薄い赤 */
+        #adminsTable { background-color: #f0fff0; } /* 非常に薄い緑 */
+        #companiesTable { background-color: #f0f0ff; } /* 非常に薄い青 */
+        #companyEmployeesTable { background-color: #fff5e6; } /* 非常に薄いオレンジ */
+        #groupsTable { background-color: #e6f7ff; } /* 非常に薄い水色 */
+        #eventsTable { background-color: #f6e6ff; } /* 非常に薄い紫 */
+        #messagesTable { background-color: #fffff0; } /* 非常に薄い黄色 */
+        #locationDataTable { background-color: #fff0f0; } /* 非常に薄いピンク */
+        #locationHistoryTable { background-color: #f0fff0; } /* 非常に薄いミント */
+
+        /* 個別のテーブルスタイル */
+        .btn-usersTable  { background-color: #fff0f0; } /* 非常に薄い赤 */
+        .btn-adminsTable  { background-color: #f0fff0; } /* 非常に薄い緑 */
+        .btn-companiesTable  { background-color: #f0f0ff; } /* 非常に薄い青 */
+        .btn-companyEmployeesTable  { background-color: #fff5e6; } /* 非常に薄いオレンジ */
+        .btn-groupsTable  { background-color: #e6f7ff; } /* 非常に薄い水色 */
+        .btn-eventsTable  { background-color: #f6e6ff; } /* 非常に薄い紫 */
+        .btn-messagesTable  { background-color: #fffff0; } /* 非常に薄い黄色 */
+        .btn-locationDataTable  { background-color: #fff0f0; } /* 非常に薄いピンク */
+        .btn-locationHistoryTable  { background-color: #f0fff0; } /* 非常に薄いミント */
+
+        
+    </style>
+    <style>
+        table {
+            width: 100%; /* テーブルの幅を100%に設定 */
+            border-collapse: collapse; /* セルのボーダーを重ねる */
+        }
+        td, th {
+            border: 1px solid #ddd; /* セルにボーダーを設定 */
+        }
+        input[type="text"] {
+            width: 100%; /* inputの幅をtdに合わせる */
+            box-sizing: border-box; /* パディングとボーダーも要素の幅に含める */
+            border: 1px solid #ccc;
+            padding: 6px 12px; /* inputの内側の余白 */
+        }
+    </style>
+    
+</head>
+<body>
+    <button onclick="toggleTable('usersTable', this)"> users  </button>
+    <table id="usersTable" border="1" style="display:none;"> 
+        <tr>
+            <th>user_id</th>
+            <th>user_name</th>
+            <th>full_name</th>
+            <th>phone_number</th>
+            <th>email_address</th>
+            <th>password</th>
+            <th>age</th>
+            <th>gender</th>
+            <th>current_event_id</th>
+            <th>current_group_id</th>
+            <th>user_status</th>
+            <th>編集</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td><input type="text" name="user_id" value="{{ user[0] }}" readonly></td>
+            <td><input type="text" name="user_name" value="{{ user[1] }}"></td>
+            <td><input type="text" name="full_name" value="{{ user[2] }}"></td>
+            <td><input type="text" name="phone_number" value="{{ user[3] }}"></td>
+            <td><input type="text" name="email_address" value="{{ user[4] }}"></td>
+            <td><input type="text" name="password" value="{{ user[5] }}"></td>
+            <td><input type="text" name="age" value="{{ user[6] }}"></td>
+            <td><input type="text" name="gender" value="{{ user[7] }}"></td>
+            <td><input type="text" name="current_event_id" value="{{ user[8] }}"></td>
+            <td><input type="text" name="current_group_id" value="{{ user[9] }}"></td>
+            <td><input type="text" name="user_status" value="{{ user[10] }}"></td>
+            <td><button onclick="editRow(this, 'users', '{{ user[0] }}')">変更</button></td> 
+        </tr>
+        {% endfor %}
+    </table>
+
+    <button onclick="toggleTable('adminsTable', this)"> admins  </button>
+    <table id="adminsTable" border="1" style="display:none;">
+    <tr>
+        <th>user_id</th>
+        <th>user_name</th>
+        <th>password</th>
+        <th>full_name</th>
+        <th>email_address</th>
+        <th>編集</th>
+    </tr>
+    {% for admin in admins %}
+    <tr>
+        <td><input type="text" name="user_id" value="{{ admin[0] }}" readonly></td>
+        <td><input type="text" name="user_name" value="{{ admin[1] }}"></td>
+        <td><input type="text" name="password" value="{{ admin[2] }}"></td>
+        <td><input type="text" name="full_name" value="{{ admin[3] }}"></td>
+        <td><input type="text" name="email_address" value="{{ admin[4] }}"></td>
+        <td><button onclick="editRow(this, 'admins', '{{ admin[0] }}')">変更</button></td> 
+    </tr>
+    {% endfor %}
+    </table>
+
+    <button onclick="toggleTable('companiesTable', this)"> companies  </button>
+    <table id="companiesTable" border="1" style="display:none;">
+    <tr>
+        <th>company_id</th>
+        <th>company_name</th>
+        <th>company_password</th>
+        <th>address</th>
+        <th>phone_number</th>
+        <th>email_address</th>
+        <th>編集</th>
+    </tr>
+    {% for company in companies %}
+    <tr>
+        <td><input type="text" name="company_id" value="{{ company[0] }}" readonly></td>
+        <td><input type="text" name="company_name" value="{{ company[1] }}"></td>
+        <td><input type="text" name="company_password" value="{{ company[2] }}"></td>
+        <td><input type="text" name="address" value="{{ company[3] }}"></td>
+        <td><input type="text" name="phone_number" value="{{ company[4] }}"></td>
+        <td><input type="text" name="email_address" value="{{ company[5] }}"></td>
+        <td><button onclick="editRow(this, 'companies', '{{ company[0] }}')">変更</button></td> 
+    </tr>
+    {% endfor %}
+    </table>
+
+    <button onclick="toggleTable('companyEmployeesTable', this)"> companies_employee  </button>
+    <table id="companyEmployeesTable" border="1" style="display:none;">
+    <tr>
+        <th>company_id</th>
+        <th>user_id</th>
+        <th>user_name</th>
+        <th>full_name</th>
+        <th>password</th>
+        <th>email_address</th>
+        <th>編集</th>
+    </tr>
+    {% for employee in companies_employee %}
+    <tr>
+        <td><input type="text" name="company_id" value="{{ employee[0] }}" readonly></td>
+        <td><input type="text" name="user_id" value="{{ employee[1] }}" readonly></td>
+        <td><input type="text" name="user_name" value="{{ employee[2] }}"></td>
+        <td><input type="text" name="full_name" value="{{ employee[3] }}"></td>
+        <td><input type="text" name="password" value="{{ employee[4] }}"></td>
+        <td><input type="text" name="email_address" value="{{ employee[5] }}"></td>
+        <td><button onclick="editRow(this, 'companies_employee', '{{ employee[0] }}')">変更</button></td> 
+    </tr>
+    {% endfor %}
+    </table>
+
+    <button onclick="toggleTable('groupsTable', this)"> groups  </button>
+    <table id="groupsTable" border="1" style="display:none;">
+    <tr>
+        <th>group_id</th>
+        <th>group_name</th>
+        <th>password</th>
+        <th>user_id</th>
+        <th>creation_date</th>
+        <th>max_members</th>
+        <th>current_members</th>
+        <th>event_id</th>
+        <th>編集</th>
+    </tr>
+    {% for group in groups %}
+    <tr>
+        <td><input type="text" name="group_id" value="{{ group[0] }}" readonly></td>
+        <td><input type="text" name="group_name" value="{{ group[1] }}"></td>
+        <td><input type="text" name="password" value="{{ group[2] }}"></td>
+        <td><input type="text" name="user_id" value="{{ group[3] }}"></td>
+        <td><input type="text" name="creation_date" value="{{ group[4] }}" readonly></td>
+        <td><input type="text" name="max_members" value="{{ group[5] }}"></td>
+        <td><input type="text" name="current_members" value="{{ group[6] }}" readonly></td>
+        <td><input type="text" name="event_id" value="{{ group[7] }}"></td>
+        <td><button onclick="editRow(this, 'groups', '{{ group[0] }}')">変更</button></td> 
+    </tr>
+    {% endfor %}
+    </table>
+
+    <button onclick="toggleTable('eventsTable', this)"> events  </button>
+    <table id="eventsTable" border="1" style="display:none;">
+    <tr>
+        <th>company_id</th>
+        <th>event_name</th>
+        <th>event_id</th>
+        <th>password</th>
+        <th>start_time</th>
+        <th>end_time</th>
+        <th>location</th>
+        <th>event_content</th>
+        <th>編集</th>
+    </tr>
+    {% for event in events %}
+    <tr>
+        <td><input type="text" name="company_id" value="{{ event[0] }}" readonly></td>
+        <td><input type="text" name="event_name" value="{{ event[1] }}"></td>
+        <td><input type="text" name="event_id" value="{{ event[2] }}" readonly></td>
+        <td><input type="text" name="password" value="{{ event[3] }}"></td>
+        <td><input type="text" name="start_time" value="{{ event[4] }}"></td>
+        <td><input type="text" name="end_time" value="{{ event[5] }}"></td>
+        <td><input type="text" name="location" value="{{ event[6] }}"></td>
+        <td><input type="text" name="event_content" value="{{ event[7] }}"></td>
+        <td><button onclick="editRow(this, 'events', '{{ event[0] }}')">変更</button></td> 
+    </tr>
+    {% endfor %}
+    </table>
+
+    <button onclick="toggleTable('messagesTable', this)"> messages  </button>
+    <table id="messagesTable" border="1" style="display:none;">
+    <tr>
+        <th>message_id</th>
+        <th>sender_user_id</th>
+        <th>sender_role</th>
+        <th>receiver_user_id</th>
+        <th>receiver_role</th>
+        <th>message_content</th>
+        <th>sent_time</th>
+        <th>編集</th>
+    </tr>
+    {% for message in messages %}
+    <tr>
+        <td><input type="text" name="message_id" value="{{ message[0] }}" readonly></td>
+        <td><input type="text" name="sender_user_id" value="{{ message[1] }}"></td>
+        <td><input type="text" name="sender_role" value="{{ message[2] }}"></td>
+        <td><input type="text" name="receiver_user_id" value="{{ message[3] }}"></td>
+        <td><input type="text" name="receiver_role" value="{{ message[4] }}"></td>
+        <td><input type="text" name="message_content" value="{{ message[5] }}"></td>
+        <td><input type="text" name="sent_time" value="{{ message[6] }}" readonly></td>
+        <td><button onclick="editRow(this, 'messages', '{{ message[0] }}')">変更</button></td> 
+    </tr>
+    {% endfor %}
+    </table>
+
+    <button onclick="toggleTable('locationDataTable', this)"> location_data  </button>
+    <table id="locationDataTable" border="1" style="display:none;">
+    <tr>
+        <th>user_id</th>
+        <th>user_status</th>
+        <th>current_latitude</th>
+        <th>current_longitude</th>
+        <th>current_altitude</th>
+        <th>acquisition_time</th>
+        <th>編集</th>
+    </tr>
+    {% for location in location_data %}
+    <tr>
+        <td><input type="text" name="user_id" value="{{ location[0] }}" readonly></td>
+        <td><input type="text" name="user_status" value="{{ location[1] }}"></td>
+        <td><input type="text" name="current_latitude" value="{{ location[2] }}"></td>
+        <td><input type="text" name="current_longitude" value="{{ location[3] }}"></td>
+        <td><input type="text" name="current_altitude" value="{{ location[4] }}"></td>
+        <td><input type="text" name="acquisition_time" value="{{ location[5] }}" readonly></td>
+        <td><button onclick="editRow(this, 'locations', '{{ location[0] }}')">変更</button></td> 
+    </tr>
+    {% endfor %}
+    </table>
+    
+    <button onclick="toggleTable('locationHistoryTable', this)"> location_history  </button>
+    <table id="locationHistoryTable" border="1" style="display:none;">
+    <tr>
+        <th>user_id</th>
+        <th>latitude</th>
+        <th>longitude</th>
+        <th>altitude</th>
+        <th>acquisition_time</th>
+        <th>user_status</th>
+        <th>編集</th>
+    </tr>
+    {% for history in location_history %}
+    <tr>
+        <td><input type="text" name="user_id" value="{{ history[0] }}" readonly></td>
+        <td><input type="text" name="latitude" value="{{ history[1] }}"></td>
+        <td><input type="text" name="longitude" value="{{ history[2] }}"></td>
+        <td><input type="text" name="altitude" value="{{ history[3] }}"></td>
+        <td><input type="text" name="acquisition_time" value="{{ history[4] }}" readonly></td>
+        <td><input type="text" name="user_status" value="{{ history[5] }}"></td>
+        <td><button onclick="editRow(this, 'location_history', '{{ history[0] }}')">変更</button></td> 
+    </tr>
+    {% endfor %}
+    </table>
+
+    
+    <script>
+        function toggleTable(tableName, button) {
+            var table = document.getElementById(tableName);
+            var display = table.style.display;
+    
+            // テーブルの表示状態を切り替える
+            table.style.display = display === 'none' ? '' : 'none';
+    
+            // ボタンのクラス名を生成
+            var buttonClass = 'btn-' + tableName;
+            
+            // ボタンのクラスを切り替える
+            if (display === 'none') {
+                button.classList.add(buttonClass);
+                button.classList.remove("active-button");
+            } else {
+                button.classList.remove(buttonClass);
+                button.classList.add("active-button");
+            }
+        }
+    </script>
+    <script>
+        function editRow(button, tableName, rowId) {
+    var inputs = button.closest('tr').getElementsByTagName('input');
+    var data = {};
+    for (var i = 0; i < inputs.length; i++) {
+        data[inputs[i].name] = inputs[i].value;
+    }
+
+    // Fetch APIを使用してデータをサーバーに送信
+    fetch('/edit_row', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({table: tableName, id: rowId, data: data}),
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message); // 成功メッセージの表示
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+    </script>
+    
+
+</body>
+</html>

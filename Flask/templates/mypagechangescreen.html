@@ -1,0 +1,170 @@
+<!-- マイページ変更画面 -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>マイページ変更画面</title>
+    <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            width: 470px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            display: inline-block;
+            width: 30%; /* ラベルの幅を調整 */
+            text-align: left; /* ラベルを右寄せ */
+            margin-right: 10px; /* ラベルと入力フィールドの間隔 */
+            box-sizing: border-box; /* paddingを含めた全体の幅にする */
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+        }
+
+        label[for="maleRadio"],
+        label[for="femaleRadio"],
+        label[for="otherRadio"] {
+            display: inline-block;
+            width: auto;
+            text-align: left;
+            margin-right: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="radio"] {
+            display: inline-block;
+            margin-right: 5px; /* ラジオボタン同士の間隔を調整 */
+        }
+
+        .backButton {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: #3498db;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .backButton:hover {
+            background-color: #a5a3a3;
+            color: #ffffff;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            display: block;
+            margin: 0 auto;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"] {
+            width: 60%; /* 入力フィールドの幅を調整 */
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'header.html' %}
+
+    <nav class="menu">
+        <ul>
+            <li><a href="/signup">新規登録</a></li>
+            <li><a href="/login">ログイン</a></li>
+        </ul>
+    </nav>
+
+    <a href="/index" class="backButton">戻る</a>
+
+    <form action="#" method="post"> <!--ここはどうする？-->
+
+<div id="main-content">
+    <form id="profile-form">
+    <h2>マイページ情報の変更</h2>
+
+    <label for="name">名前</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="phone">電話番号</label>
+    <input type="tel" id="phone" name="phone" pattern="[0-9]{10,11}" required>
+
+    <label for="email">メールアドレス</label>
+    <input type="email" id="email" name="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
+
+    <label for="currentPassword">現在のパスワード</label>
+    <input type="password" id="currentPassword" name="currentPassword" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$">
+
+    <label for="newPassword">新しいパスワード</label>      
+    <input type="password" id="newPassword" name="newPassword" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$">
+
+    <label for="age">年齢</label>
+    <input type="number" id="age" name="age" pattern="[0-9]*">
+
+    <label>性別</label>
+    <input type="radio" id="maleRadio" name="gender" value="male">
+    <label for="maleRadio">男性</label>
+
+    <input type="radio" id="femaleRadio" name="gender" value="female">
+    <label for="femaleRadio">女性</label>
+
+    <input type="radio" id="otherRadio" name="gender" value="other">
+    <label for="otherRadio">未回答</label>
+
+    <button type="button" onclick="updateProfile()">変更ボタン</button>
+    </div>
+
+    </form>
+
+    <div id="footer"></div>
+
+    <script>
+         
+
+        fetch("./static/footer.html")
+            .then((response) => response.text())
+            .then((data) => document.querySelector("#footer").innerHTML = data);
+    </script>
+    <script src="./static/header.js"></script>
+</body>
+</html>

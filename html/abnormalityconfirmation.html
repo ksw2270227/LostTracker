@@ -1,0 +1,143 @@
+<!-- 異常確認画面 -->
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>異常確認画面</title>
+
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 0;
+            margin-bottom: 0;
+            background-color: #ffff;
+            width: 400px;
+        }
+
+        .user{
+            text-align: center;
+            border: 1px solid black;
+
+        }
+
+        .haiti{
+            display: flex;
+        }
+
+        .em{
+            border: 1px solid black;
+            padding: 5px;
+            margin-right: 10px;
+            margin-bottom: 5px;
+            border-radius: 10px;
+            margin-left: auto;
+        }
+
+        .immovable{
+            border: 1px solid black;
+            max-width: 120px;
+            padding: 5px;
+            margin-right: 10px;
+            flex-grow: 1;
+            margin-bottom: 5px;
+            border-radius: 10px;
+        }
+
+        .listLabel {
+            border: 1px solid black;
+            padding: 5px;
+            margin-right: 100opx;
+            margin-bottom: 10px;
+            text-align: center;
+
+        }
+
+        .map {
+            border: 1px solid black;
+            padding: 75px;
+            margin-right: 1px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .time {
+            border: 1px solid black;
+            /* padding: 75px; */
+            /* margin-right: 1px; */
+            /* margin-bottom: 10px; */
+        }
+        
+        .kijutu{
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <div class="login-container">
+        <div class="haiti">
+            <div class="em">
+                🔴　緊急
+            </div>
+            <div class="immovable">            
+                🟣　30分不動
+            </div>
+        </div>    
+
+        <div class="user">
+            異常確認したユーザーの現在地
+        </div>
+        <div class="map">
+
+            ここに異常検知をした人にマップを表示する画面
+
+        </div>
+    </div>
+
+    <div class="login-container">
+        <div class="listLabel">
+            異常を確認したユーザーの一覧
+            <div class="time">
+                <p class="kijutu">名前　　　　　　検知時間</p>
+                <div class="time">
+                    <p class="kijutu">○○○○　　　　　　○○○○</p>
+                </div>
+                <div class="time">
+                    <p class="kijutu">○○○○　　　　　　○○○○</p>
+                </div>
+                <div class="time">
+                    <p class="kijutu">○○○○　　　　　　○○○○</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+    <script>
+        fetch("header.html")
+            .then((response) => response.text())
+            .then((data) => {
+                document.querySelector("#header").innerHTML = data;
+
+                // ヘッダーを読み込んだ後にハンバーガーボタンにイベントを設定する
+                document.querySelector('.hamburger-menu').addEventListener('click', function () {
+                    document.querySelector('.menu').classList.toggle('active');
+                });
+            });
+
+        fetch("footer.html")
+            .then((response) => response.text())
+            .then((data) => document.querySelector("#footer").innerHTML = data);
+    </script>
+</body>
+
+</html>

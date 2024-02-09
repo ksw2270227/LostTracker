@@ -1,0 +1,68 @@
+<!-- トップページ -->
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>サイトのタイトル</title>
+  <meta name="description" content="サイトの説明文">
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    main {
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 128px);
+        margin: 0;
+    }
+</style>
+</head>
+
+<body>
+  <div id="header"></div>
+
+  <main>
+    <section class="hero">
+      <h1>ロストトラッカー</h1>
+      <p>サイトの特徴や価値提案を伝える文章が入ります。</p>
+    </section>
+
+    <section class="features">
+      <div class="feature">
+        <h2>グループ</h2>
+        <p>旅行はこちら</p>
+        <a href="creategroup.html" class="cta-button">作成</a>
+        <a href="joingroup.html" class="cta-button">参加</a>
+      </div>
+      <div class="feature">
+        <h2>イベント</h2>
+        <p>ツアー旅行やスキーはこちら</p>
+        <a href="eventparticpation.html" class="cta-button">参加</a>
+      </div>
+      <!-- 他の機能やコンテンツブロックを追加 -->
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <!-- JavaScriptを追加 -->
+  <script>
+    fetch("header.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.querySelector("#header").innerHTML = data;
+
+        // ヘッダーを読み込んだ後にハンバーガーボタンにイベントを設定する
+        document.querySelector('.hamburger-menu').addEventListener('click', function () {
+          document.querySelector('.menu').classList.toggle('active');
+        });
+      });
+
+    fetch("footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+  </script>
+</body>
+
+</html>

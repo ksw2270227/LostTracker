@@ -1,0 +1,63 @@
+<!-- ヘッダー -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>サイトのタイトル</title>
+    <meta name="description" content="サイトの説明文">
+    <link rel="stylesheet" href="./static/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="/index">
+                <img src="./static/logo.png" alt="ロゴ">
+            </a>
+        </div>
+        <div class="hamburger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <nav class="menu">
+            <ul>
+            {% if session.get('user_id') is none %}
+                <!-- 未ログイン時 -->
+                <li><a href="/signup">新規登録</a></li>
+                <li><a href="/login">ログイン</a></li>
+            {% elif session.get('user_id') %}
+                <!-- ログイン済み時 -->
+                <li><a href="/mypage">マイページ</a></li>
+                <li><a href="chat">チャット</a></li>
+                <li><a href="/map">マップ</a></li>
+                <li><a href="/group">グループ</a></li>
+                <li><a href="/event">イベント</a></li>
+                <li><a href="" onclick="showConfirmation()">ログアウト</a></li>
+            {% else %}
+                <li><a href="#">user_idなし</a></li>
+            {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <!-- JavaScriptファイルのリンク -->
+    <script src="./static/header.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ハンバーガーメニューのクリックイベント
+            document.querySelector('.hamburger-menu').addEventListener('click', function(event) {
+                event.stopPropagation(); // クリックイベントが親要素に伝播しないようにする
+                document.querySelector('.menu').classList.toggle('active');
+            });
+
+            // メニューの外側をクリックしたときのイベント
+            document.addEventListener('click', function(event) {
+                const menu = document.querySelector('.menu');
+                if (!menu.contains(event.target) && !event.target.classList.contains('hamburger-menu')) {
+                    // クリックされた要素がメニューの外側であり、かつハンバーガーメニュー自体ではない場合
+                    menu.classList.remove('active'); // メニューを非表示にする
+                }
+            });
+        });
+    </script>
+</body>
+</html>

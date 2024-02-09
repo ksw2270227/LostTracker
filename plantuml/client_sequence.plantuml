@@ -1,0 +1,555 @@
+@startuml 新規登録
+
+actor パートナー企業 as 0
+Boundary ":新規登録画面" as a
+Control ":新規登録" as b
+Entity ":企業従業員" as c
+Boundary ":ログイン画面" as d
+Boundary ":登録失敗エラー" as e
+Boundary ":無効情報エラー" as f
+
+
+activate 0
+    0 -> a :1: 登録情報を入力()
+deactivate 0
+
+activate a
+    a -> b :1.1: 起動()
+deactivate a
+
+activate b
+    b -> c :1.1.1: 新規登録()
+activate c
+    b <-- c
+deactivate c
+
+alt [正常]
+    b -> d :1.1.2: 表示()
+activate d
+deactivate d
+else [登録処理失敗時]
+    b -> e :1.1.3: エラー発生時:表示()
+activate e
+deactivate e
+else [無効情報入力時]
+    b -> f :1.1.4: エラー発生時:表示()
+deactivate b
+activate f
+f -[hidden]-> f
+deactivate f
+end
+
+
+@enduml
+
+
+@startuml ログイン
+
+
+actor パートナー企業 as 0
+Boundary ":ログイン画面" as a
+Control ":ユーザー認証" as b
+Entity ":企業従業員" as c
+Boundary ":トップページ" as d
+Boundary ":ログインエラー" as e
+Boundary ":無効情報エラー" as g
+Boundary ":未入力エラー" as f
+
+activate 0
+    0 -> a :1: ログイン情報を入力()
+deactivate 0
+
+activate a
+    a -> b :1.1: 起動()
+deactivate a
+
+activate b
+    b -> c :1.1.1: ユーザー認証()
+activate c
+    b <-- c
+deactivate c
+
+alt [正常]
+    b -> d :1.1.2: 表示()
+activate d
+deactivate d
+else [ログイン処理失敗時]
+    b -> e :1.1.3: エラー発生時:表示()
+activate e
+deactivate e
+else [無効情報入力時]
+    b -> g :1.1.4: エラー発生時:表示()
+activate g
+deactivate g
+else [情報未入力時]
+    b -> f :1.1.5: エラー発生時:表示()
+deactivate b
+activate f
+f -[hidden]-> f
+deactivate f
+end
+
+@enduml
+
+
+@startuml ログアウト
+
+
+actor パートナー企業 as 0
+Boundary ":トップページ" as a
+Control ":ログアウト処理" as b
+Entity ":企業従業員" as c
+Boundary ":トップページ" as d
+Boundary ":ログアウト失敗エラー" as e
+
+activate 0
+    0 -> a :1: ログアウトをクリック()
+deactivate 0
+activate a
+    a -> b :1.1: 起動()
+deactivate a
+activate b
+    b -> c :1.1.1: ユーザー認証()
+activate c
+    b <-- c
+deactivate c
+
+alt [正常]
+    b -> d :1.1.2: 表示()
+activate d
+deactivate d
+else [ログアウト処理失敗時]
+    b -> e :1.1.3: エラー発生時:表示()
+deactivate b
+activate e
+e -[hidden]-> e
+deactivate e
+end
+
+@enduml
+
+@startuml パスワード変更
+
+actor パートナー企業 as 0
+Boundary ":ログイン画面" as a
+Boundary ":パスワード忘れ画面" as b
+Control ":メールアドレス認証" as c
+Boundary ":無効メールアドレスエラー" as h
+Boundary ":パスワード変更画面" as d
+Control ":パスワード変更" as e
+Entity ":企業従業員" as en
+Boundary ":ログイン画面" as f
+Boundary ":無効パスワードエラー" as g
+
+
+activate 0
+0 -> a : 1: パスワードを忘れた場合をクリック()
+
+activate a
+a -> b : 1.1: 表示()
+deactivate a
+activate b
+
+
+0 -> b : 2: メールアドレスを入力()
+
+b -> c : 2.1: 起動()
+deactivate b
+
+activate c
+c -> en : 2.1.1: メールアドレス認証()
+activate en
+en --> c
+deactivate en
+
+alt [正常時]
+h -[hidden]-> h
+
+else [無効なメールアドレス入力時]
+c -> h : 2.1.2: エラー発生時:表示()
+deactivate c
+activate h
+h -[hidden]-> h
+deactivate h
+end
+
+
+0 -> d  : 3: 新規パスワードを入力()
+deactivate 0
+
+activate d
+d -> e : 3.1: 起動()
+deactivate d
+activate e
+
+e -> en : 3.1.1: パスワードを変更()
+activate en
+en --> e
+deactivate en
+
+alt [正常]
+e -> f : 3.1.2: 表示()
+activate f
+deactivate f
+deactivate g
+
+else [無効なパスワード入力時]
+e -> g : 3.1.3: エラー発生時:表示()
+deactivate e
+activate g
+g -[hidden]-> g
+deactivate g
+
+end
+
+@enduml
+
+
+@startuml イベント作成
+
+actor パートナー企業 as 0
+Boundary ":イベント作成画面" as a
+Control ":イベント情報登録" as b
+Entity ":イベント" as c
+Boundary ":トップページ" as d
+Boundary ":無効情報エラー" as f
+Boundary ":登録失敗エラー" as e
+
+
+activate 0
+    0 -> a :1: イベント情報を入力()
+deactivate 0
+
+activate a
+    a -> b :1.1: 起動()
+deactivate a
+
+activate b
+    b -> c :1.1.1: イベントを登録()
+activate c
+    b <-- c
+deactivate c
+
+alt [正常]
+    b -> d :1.1.2: 表示()
+activate d
+deactivate d
+else [無効情報入力時]
+    b -> f :1.1.3: エラー発生時:表示()
+activate f
+deactivate f
+else [登録処理失敗時]
+    b -> e :1.1.4: エラー発生時:表示()
+deactivate b
+activate e
+e -[hidden]-> e
+deactivate e
+end
+
+@enduml
+
+
+@startuml イベント変更
+
+actor パートナー企業 as 0
+'Control ":イベント情報取得" as b
+Boundary ":イベント情報画面" as a
+Boundary ":イベント変更画面" as c
+Control ":イベント変更" as d
+Entity ":イベント" as en
+Boundary ":イベント情報画面" as e
+Boundary ":登録失敗エラー" as f
+
+/'
+activate b
+b -> en : 0.1: イベント情報取得()
+activate en
+en --> b
+deactivate en
+
+b -> a : 0.2: 表示()
+deactivate b
+activate a
+'/
+
+activate 0
+    0 -> a :1: 変更ボタンをクリック()
+activate a
+
+a -> c :1.1: 表示()
+deactivate a
+
+activate c
+
+
+    0 -> c :2: 変更情報を入力()
+deactivate 0
+
+
+c -> d :2.1: 起動()
+deactivate c
+activate d
+
+    d -> en :2.1.1: イベントを更新()
+activate en
+    d <-- en
+deactivate en
+
+alt [正常]
+d -> e :2.1.2: 表示()
+activate e
+deactivate e
+
+else [登録処理失敗時]
+d -> f :2.1.3: エラー発生時:表示()
+deactivate d
+activate f
+f -[hidden]-> f
+deactivate f
+
+end
+
+@enduml
+
+
+
+
+@startuml イベント削除
+
+actor パートナー企業 as 0
+'Control ":イベント情報取得" as b
+Boundary ":イベント情報画面" as a
+Control ":イベント削除" as d
+Entity ":イベント" as en
+Boundary ":トップページ" as e
+Boundary ":削除失敗エラー" as f
+
+/'
+activate b
+b -> en : 0.1: イベント情報取得()
+activate en
+en --> b
+deactivate en
+
+b -> a
+deactivate b
+activate a
+'/
+
+activate 0
+    0 -> a :1: 削除ボタンをクリック()
+deactivate 0
+activate a
+
+a -> d :1.1: 起動()
+deactivate a
+
+activate d
+    d -> en :1.1.1: イベントを削除()
+activate en
+    d <-- en
+deactivate en
+
+alt [正常]
+d -> e :1.1.2: 表示()
+activate e
+deactivate e
+
+else [削除処理失敗時]
+d -> f :1.1.3: エラー発生時:表示()
+deactivate d
+activate f
+f -[hidden]-> f
+deactivate f
+
+end
+
+@enduml
+
+
+@startuml 参加ユーザー確認
+
+actor パートナー企業 as 0
+'Control ":イベント情報取得" as b
+'Entity ":イベント" as en
+Boundary ":イベント情報画面" as a
+Control ":参加ユーザー取得" as c
+Entity ":ユーザー" as enn
+Boundary ":ユーザー一覧画面" as d
+Boundary ":参加者不在エラー" as e
+
+/'
+activate b
+b -> en : 0.1: イベント情報取得()
+activate en
+en --> b
+deactivate en
+
+b -> a
+deactivate b
+activate a
+'/
+
+activate 0
+    0 -> a :1: ユーザーボタンをクリック()
+deactivate 0
+activate a
+
+
+a -> c :1.1: 起動()
+deactivate a
+
+activate c
+    c -> enn :1.1.1: ユーザー情報取得()
+activate enn
+    c <-- enn
+deactivate enn
+
+alt [正常]
+c -> d :1.1.2: 表示()
+
+activate d
+deactivate d
+
+else [参加者0人]
+c -> e :1.1.3: エラー発生時:表示()
+deactivate c
+activate e
+e -[hidden]-> e
+deactivate e
+end
+
+@enduml
+
+
+@startuml チャット
+
+
+actor パートナー企業 as 0
+'Control ":最新チャット取得" as b
+Boundary ":チャット相手指定画面" as a
+Control ":チャット履歴取得" as d
+Boundary ":選択失敗エラー" as h
+Boundary ":チャット画面" as c
+Control ":チャット履歴保存" as g
+Entity ":メッセージ" as en
+Boundary ":チャット画面" as e
+Boundary ":送信失敗エラー" as f
+
+
+/'
+activate b
+b -> en : 0.1: 最新チャット取得()
+activate en
+en --> b
+deactivate en
+
+b -> a : 0.2: 表示()
+deactivate b
+'/
+
+activate 0
+    0 -> a :1: チャットするユーザーを選択()
+activate a
+
+
+a -> d :1.1: 起動()
+deactivate a
+activate d
+
+d -> en :1.1.1: チャット履歴を取得()
+activate en
+    d <-- en
+deactivate en
+
+alt [正常]
+d -> c :1.1.2: 表示()
+activate c
+
+else [ユーザー選択失敗時]
+d -> h :1.1.3: エラー発生時:表示()
+deactivate d
+activate h
+h -[hidden]-> h
+deactivate h
+end
+
+
+0 -> c :2: チャットを入力し送信()
+deactivate 0
+
+
+c -> g :2.1: 起動()
+deactivate c
+activate g
+
+g -> en :2.1.1: チャットを保存()
+activate en
+    g <-- en
+deactivate en
+
+
+alt [正常]
+g -> e :2.1.2: 表示()
+activate e
+deactivate e
+
+else [送信処理失敗時]
+g -> f :2.1.3: エラー発生時:表示()
+deactivate g
+activate f
+f -[hidden]-> f
+deactivate f
+
+end
+
+@enduml
+
+
+
+@startuml 異常確認
+
+actor ":パートナー企業" as 0
+boundary ":トップページ" as a
+control ":ユーザー情報取得" as c
+entity ":ユーザー" as e
+control ":位置情報取得" as b
+entity ":位置情報" as en
+boundary ":異常確認画面" as d
+
+
+
+activate 0
+0 -> a : 1:異常確認をクリック()
+deactivate 0
+
+activate a
+a -> c : 1.1: 起動()
+deactivate a
+
+
+
+activate c
+c -> e :1.1.1: 異常状態のユーザーを取得()
+activate e
+e --> c
+deactivate e
+
+c -> b : 1.1.2: 起動()
+deactivate c
+
+
+activate b
+b -> en :1.1.2.1: 位置情報を取得()
+activate en
+en --> b
+deactivate en
+
+d <- b : 1.1.2.2:表示()
+deactivate b
+activate d
+d -[hidden]-> d
+deactivate d
+
+@enduml
+

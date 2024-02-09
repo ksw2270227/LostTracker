@@ -1,0 +1,384 @@
+@startuml シーケンス図 ログイン
+actor システム管理者
+boundary "ログイン画面" as mein
+' control "表示一" as display1
+control "本人認証表示" as certification
+entity "システム管理者" as system
+boundary "ログイン完了" as completion
+boundary "エラー画面1" as error1
+boundary "エラー画面2" as error2
+boundary "エラー画面3" as error3
+
+activate システム管理者
+システム管理者 -> mein :1:情報の入力()
+deactivate システム管理者
+activate mein
+mein -> certification :1.1:表示()
+deactivate mein
+activate certification
+certification -> system:1.1.1:情報の参照()
+activate system
+system --> certification
+deactivate system
+
+alt [正常]
+    certification -> completion :1.1.2:表示()
+activate completion
+deactivate completion
+else [無効エラー時]
+    certification -> error1 :1.1.3:無効エラー:表示()
+activate error1
+deactivate error1
+else [未入力]
+    certification -> error2 :1.1.4:未入力エラー:表示()
+activate error2
+deactivate error2
+else [ログイン失敗エラー]
+    certification -> error3:1.1.5:ログイン失敗エラー:表示()
+deactivate certification
+activate error3
+error3 -[hidden]-> error3
+deactivate error3
+end
+
+@enduml
+
+
+
+@startuml
+actor システム管理者
+boundary "ログイン画面" as mein
+boundary "パスワード忘れ画面" as pasforget
+control "認証表示" as certification
+boundary "エラー画面1" as error1
+entity "システム管理者" as system
+boundary "パスワード変更画面" as paschange
+control "パスワード変更" as pas
+entity "システム管理者" as system2
+boundary "パスワード変更エラー画面" as paschanges
+boundary "ログイン画面" as mein1
+
+
+activate システム管理者
+システム管理者 -> mein:1:パスワード忘れクリック()
+activate mein
+mein -> pasforget :表示():1.1
+deactivate mein
+activate pasforget
+システム管理者 -> pasforget :2:メールアドレスの入力()
+pasforget -> certification :2.1:認証()
+deactivate pasforget
+activate certification
+certification -> system:2.1.1メールアドレスの比較()
+activate system
+system --> certification
+deactivate system
+
+
+
+alt [正常]
+    certification -> paschange :2.1.2: リンク送信()
+activate paschange
+deactivate paschange
+
+
+else [エラー時]
+    certification -> error1 :2.1.3: エラー発生時:表示()
+deactivate certification
+activate error1
+error1 -[hidden]-> error1
+deactivate error1
+end
+
+システム管理者 -> paschange:3:各自の情報を入力して、登録を押す()
+activate paschange
+paschange -> pas:3.1起動()
+deactivate paschange
+activate pas
+pas -> system2:3.1.1保存()
+activate system2
+system2 --> pas
+deactivate system2
+
+alt [正常]
+    pas -> mein1 :3.1.2:表示()
+activate mein1
+deactivate mein1
+else [パスワード変更エラー] 
+    pas -> paschanges:3.1.3:表示()
+deactivate pas
+activate paschanges
+pas -[hidden]-> pas
+deactivate paschanges
+end
+
+
+@enduml
+
+
+
+
+
+
+
+
+@startuml ログアウトシーケンス図
+actor システム管理者
+boundary "ログアウト画面" as out
+control "ログアウト処理" as process
+boundary "ログイン画面" as in
+' control "エラー表示" as error
+boundary "エラー表示画面" as errorscreen
+
+activate システム管理者
+システム管理者 -> out:1:ポップアップの表示()
+deactivate システム管理者
+activate out
+out -> process:1.1起動()
+deactivate out
+activate process
+
+
+alt [正常]
+    process -> in :1.1.1: 表示()
+activate in
+deactivate in
+else [ログアウトエラー時]
+    process -> errorscreen :1.1.2: エラー発生時:表示()
+deactivate process
+activate errorscreen
+errorscreen -[hidden]-> errorscreen
+deactivate errorscreen
+end
+
+@enduml
+
+
+
+@startuml シーケンス図登録情報確認
+actor システム管理者
+boundary "ユーザー一覧画面" as screenuser
+control "情報の取得" as information
+entity "ユーザー" as user
+' control "情報詳細表示" as detail
+boundary "ユーザー情報詳細確認画面" as detailuser
+' control "詳細取得失敗表示" as errordetail
+boundary "詳細表示失敗画面" as errorscreen
+' control "ユーザー詳細失敗表示" as userdetail
+boundary "ユーザー選択表示失敗画面" as userdisplay
+
+activate システム管理者
+システム管理者 -> screenuser:1:アクセス()
+deactivate システム管理者
+activate screenuser
+screenuser -> information:1.1起動()
+deactivate screenuser
+activate information
+information -> user:1.1.1情報の取得()
+activate user
+user --> information
+deactivate user
+
+alt [正常]
+    information -> detailuser :1.1.2: 表示()
+activate detailuser
+deactivate detailuser
+else [詳細表示エラー時]
+    information -> errorscreen :1.1.3: エラー発生時:表示()
+activate errorscreen
+deactivate errorscreen
+else [ユーザー表示エラー時]
+    information -> userdisplay :1.1.4:エラー発生時:表示()
+deactivate information
+activate userdisplay
+userdisplay -[hidden]-> userdisplay
+deactivate userdisplay
+
+end
+
+
+
+
+@enduml
+@startuml シーケンス図登録情報削除
+actor システム管理者
+boundary "ユーザー情報確認詳細画面" as userdetail
+control "情報の取得" as detail
+entity "ユーザー" as user
+
+boundary "ユーザー情報確認詳細画面" as userdetail2
+control "情報の取得" as detail1
+entity "ユーザー" as user2
+boundary "ユーザー一覧画面" as user3
+boundary "削除失敗画面" as errordelete
+
+activate システム管理者
+システム管理者 -> userdetail:1:画面のクリック()
+
+activate userdetail
+userdetail -> detail:1.1:起動()
+deactivate userdetail
+activate detail
+detail -> user:1.1.1:取得()
+activate user
+user --> detail
+deactivate detail
+deactivate user
+
+システム管理者 -> userdetail2:2:画面のクリック()
+deactivate システム管理者
+
+activate userdetail2
+userdetail2 -> detail1:2.1:起動()
+deactivate userdetail2
+
+
+
+activate detail1
+detail1 -> user2:2.1.1:削除()
+activate user2
+user2 --> detail1
+deactivate user2
+
+
+
+alt [正常]
+    detail1 -> user3 :2.1.2: 表示()
+activate user3
+deactivate user3
+else [削除エラー時]
+    detail1 -> errordelete :2.1.3: エラー発生時:表示()
+deactivate detail1
+activate errordelete
+errordelete -[hidden]-> errordelete
+deactivate errordelete
+end
+
+@enduml
+
+@startuml システム管理者チャット
+
+
+actor システム管理者 as 0
+'Control ":最新チャット取得" as b
+Boundary ":チャット相手指定画面" as a
+Control ":チャット履歴取得" as d
+Boundary ":チャット画面" as c
+Control ":メッセージ送信" as j
+Entity ":メッセージ" as en
+Control ":ユーザー選択失敗画面" as h
+Control ":チャット画面表示失敗画面" as i
+Boundary ":チャット画面" as e
+Boundary ":送信完了" as k
+Boundary ":送信失敗エラー" as f
+
+
+
+/'
+activate b
+b -> en : 0.1: 最新チャット取得()
+activate en
+en --> b
+deactivate en
+
+b -> a : 0.2: 表示()
+deactivate b
+
+'/
+
+activate 0
+    0 -> a :1: チャットするユーザーを選択()
+activate a
+
+
+a -> d :1.1: 起動()
+deactivate a
+activate d
+
+d -> en :1.1.1: チャット履歴を取得()
+activate en
+    d <-- en
+deactivate en
+
+
+alt [正常]
+    d -> c :1.1.2: 表示()
+activate c
+deactivate c
+else [ユーザー選択エラー時]
+    d -> h :1.1.3: エラー発生時:表示()
+activate h
+deactivate h
+else [画面表示エラー時]
+    d -> i :1.1.4: エラー発生時:表示()
+activate i
+i -[hidden]-> i
+deactivate i
+deactivate d
+end
+
+
+    0 -> c :2: チャット内容を入力し送信()
+deactivate 0
+
+activate c
+c -> j :2.1: 起動()
+deactivate c
+activate j
+
+j -> en :2.1.1: チャット内容を保存()
+activate en
+    j <-- en
+deactivate en
+
+
+alt [正常]
+j -> k :2.1.2: 表示()
+activate k
+deactivate k
+
+else [送信処理失敗時]
+j -> f :2.1.3: エラー発生時:表示()
+activate f
+f -[hidden]-> f
+deactivate f
+deactivate j
+
+end
+
+@enduml 
+
+@startuml ユーザー異常確認
+
+actor システム管理者 as 0
+Boundary ":異常確認画面" as a
+Control ":ユーザー取得" as b
+Entity ":ユーザー" as c
+Control ":位置情報取得" as d
+Entity ":位置情報履歴" as e
+
+activate 0
+    0 -> a :1: 異常確認をクリック()
+deactivate 0
+activate a
+    a -> b :1.1: 起動()
+activate b
+    b -> c :1.1.1: 異常状態のユーザーを取得()
+activate c
+    b <-- c
+deactivate c
+deactivate b
+
+    a -> d :1.2: 位置状態更新()
+activate d 
+    d -> e :1.2.1: 位置情報を取得()
+activate e
+    d <-- e
+deactivate e
+    d --> a 
+deactivate d
+deactivate a
+
+
+
+@enduml

@@ -1,0 +1,137 @@
+<!-- グループ画面 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>グループ画面</title>
+    <style>
+        /* 戻るリンクのスタイル */
+        .custom-link {
+            display: block;
+            margin-top: 2px;
+            /* text-align: center; */
+            text-decoration: none;
+            color: #3498db;
+            transition: color 0.3s;
+        }
+
+
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 0;
+            margin-bottom: 0;
+            background-color: #ffffff;
+        }
+
+        .login-container2 {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            margin-top: 0;
+            margin-bottom: 0;
+            /* display: none; */
+        }
+
+        .backButton {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: #3498db;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .backButton:hover {
+            background-color: #a5a3a3;
+            color: #ffffff;
+        }
+
+        .backButton1 {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #6467ff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            float: right;
+            size: auto;
+        }
+
+        .backButton1:hover {
+            background-color: #a5a3a3;
+            color: #ffffff;
+        }
+
+        h3{
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="header"></div>
+    <a href="index.html" class="backButton">戻る</a>
+    <form class="login-container">
+        <form class="line">
+
+            <script>
+                fetch("header.html")
+                    .then((response) => response.text())
+                    .then((data) => {
+                        document.querySelector("#header").innerHTML = data;
+
+                        // ヘッダーを読み込んだ後にハンバーガーボタンにイベントを設定する
+                        document.querySelector('.hamburger-menu').addEventListener('click', function () {
+                            document.querySelector('.menu').classList.toggle('active');
+                        });
+                    });
+
+                fetch("footer.html")
+                    .then((response) => response.text())
+                    .then((data) => document.querySelector("#footer").innerHTML = data);
+
+            </script>
+            <h5>グループ名が入る場所</h5>
+        </form>
+        <form class="login-container">
+            <h5>グループIDが入る場所</h5>
+        </form>
+
+        <form class="login-container">
+            <h3>参加人数 ?/10 が入る</h3>
+            <div style="border: 1px solid black;">
+                参加者氏名:○○○○
+            </div>
+            <div style="border: 1px solid black;">
+                参加者氏名:○○○○
+            </div>
+            <div style="border: 1px solid black;">
+                参加者氏名:○○○○
+            </div>
+            <div style="border: 1px solid black;">
+                参加者氏名:○○○○
+            </div>
+            <div style="border: 1px solid black;">
+                参加者氏名:○○○○
+            </div>
+        </form>
+        <div class="login-container2">
+        <a href="index.html" class="backButton1">グループ退会</a>
+        </div>
+    </form>
+
+    <div id="footer"></div>
+        
+</body>
+
+</html>
