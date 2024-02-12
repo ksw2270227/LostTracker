@@ -13,32 +13,31 @@ def get_db_connection():
 
 @chat_bp.route('/chat', methods=['GET', 'POST'])
 def chat():
+    
     # ユーザーIDがセッションに存在しない場合、ログインページにリダイレクト
     if session.get('user_id') is None:
         return redirect(url_for('login.login_user'))
-    
-    if(session.get('role')=='Admin'):
-        return redirect(url_for('selectchatpartner.selectchatpartner'))
+
     
     sender_role = session.get('role')
     if sender_role == 'Admin':
-        # URLからクエリパラメータとして渡されたuser_idを取得し、int型に変換
         if request.method == 'POST':
-            select_user_id = int(request.form.get('user_url_id'))
+            user_url_id_str = request.form.get('user_url_id')
+            if user_url_id_str is None:
+                return redirect(url_for('selectchatpartner.selectchatpartner'))
+            select_user_id = int(user_url_id_str)
             session['user_url_id'] = select_user_id
         elif request.method == 'GET':
-            select_user_id = int(request.args.get('user_url_id'))
+            user_url_id_str = request.args.get('user_url_id')
+            if user_url_id_str is None:
+                return redirect(url_for('selectchatpartner.selectchatpartner'))
+            select_user_id = int(user_url_id_str)
             session['user_url_id'] = select_user_id
         else:
             select_user_id = 11
             session['user_url_id'] = select_user_id
 
-    # if request.method == 'POST':
-    #     select_user_id = int(request.form['user_url_id'])
-    # elif request.method == 'GET':
-    #     select_user_id = int(request.args['user_url_id'])
-    # else:
-    #      select_user_id = 11
+
 
     
 

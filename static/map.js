@@ -67,41 +67,59 @@ function fetchUserStatusAndSetMarker(userLocation) {
       console.error('Error fetching user status:', error);
     });
 }
-
-
 // グループ内のユーザーの位置情報を取得し、それぞれの位置にマーカーを設定
 function fetchGroupUsersAndSetMarkers() {
+  // すべてのマーカーを削除
+  clearMarkers();
+
   fetch('/api/get-group-users')
-    .then(response => response.json())
-    .then(data => {
-        data.group_users.forEach(user => {
-            var userLocation = new google.maps.LatLng(user[2], user[3]);
-            var iconUrl = getIcon(user[0], user[4]);
+      .then(response => response.json())
+      .then(data => {
+          data.group_users.forEach(user => {
+              var userLocation = new google.maps.LatLng(user[2], user[3]);
+              var iconUrl = getIcon(user[0], user[4]);
 
-            var memberMarker = new google.maps.Marker({
-                position: userLocation,
-                map: map,
-                icon: iconUrl
-            });
-            memberMarker.addListener('click', function() {
-              selectedMemberLocation = userLocation;
-              infowindow.open(map, memberMarker);
-              // console.log("Selected Member Location:", selectedMemberLocation);
-            });
+              var memberMarker = new google.maps.Marker({
+                  position: userLocation,
+                  map: map,
+                  icon: iconUrl
+              });
 
-            var infowindow = new google.maps.InfoWindow({
-              content: user[1]
-            });
+              memberMarker.addListener('click', function() {
+                  selectedMemberLocation = userLocation;
+                  infowindow.open(map, memberMarker);
+              });
 
-            memberMarker.addListener('click', function() {
-              infowindow.open(map, memberMarker);
-            });
-        });
-    })
-    .catch(error => {
-        console.error('Error fetching group users:', error);
-    });
+              var infowindow = new google.maps.InfoWindow({
+                  content: user[1]
+              });
+
+              memberMarker.addListener('click', function() {
+                  infowindow.open(map, memberMarker);
+              });
+          });
+      })
+      .catch(error => {
+          console.error('Error fetching group users:', error);
+      });
 }
+
+// すべてのマーカーを削除する関数
+function clearMarkers() {
+  // すべてのマーカーが格納されている配列
+  // この配列は適切に初期化して、マーカーを保持している場合はすべて削除する必要があります
+  // 以下は仮の例です。実際には保持されるマーカーのリストが必要です。
+  var markers = [];
+
+  // 配列内のすべてのマーカーを削除
+  markers.forEach(function(marker) {
+      marker.setMap(null);
+  });
+
+  // 配列を空にする
+  markers = [];
+}
+
 
 // ユーザーIDとステータスに基づいてアイコンのURLを生成
 function getIconUrl(userId, userStatus) {
@@ -226,7 +244,7 @@ function getLocationAndUpdate() {
       .then(data => {
         console.log(data);
         // 位置情報の更新が成功したらfetchGroupUsersAndSetMarkersを実行
-        fetchGroupUsersAndSetMarkers();
+        // fetchGroupUsersAndSetMarkers();
       })
       .catch(error => console.error('Error updating location:', error));
 
@@ -347,6 +365,7 @@ function addMarker(location) {
 
 // ドキュメントが読み込まれた際に実行される関数
 document.addEventListener('DOMContentLoaded', function() {
+  
   // console.log("DOMContentLoaded")
   // 'sub1' クラスを持つ select 要素を取得
   
@@ -380,5 +399,5 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // 位置情報を更新するためのインターバル設定
-setInterval(getLocationAndUpdate, 10000); // 10秒ごとに更新
-setInterval(fetchGroupUsersAndSetMarkers, 10000); // 10秒ごとに更新
+setInterval(getLocationAndUpdate, 5000); // 10秒ごとに更新
+setInterval(fetchGroupUsersAndSetMarkers, 5000); // 10秒ごとに更新

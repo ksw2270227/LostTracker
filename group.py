@@ -9,8 +9,7 @@ def get_db_connection():
     conn = sqlite3.connect('testDB.db')
     return conn
 
-# group.py
-
+# joingroup成功時ここに遷移
 @group_bp.route('/group', methods=['GET'])
 def group_page():
     user_id = session.get('user_id')
@@ -20,38 +19,43 @@ def group_page():
         cursor = conn.cursor()
 
         try:
+            # ログインユーザーに参加しているグループがあるか
             cursor.execute('SELECT current_group_id FROM users WHERE user_id = ?', (user_id,))
             current_group_id = cursor.fetchone()
 
             if current_group_id:
                 current_group_id = current_group_id[0]
 
+                # 参加グループidが0または無い場合joingroupに戻る
                 if current_group_id == 0 or current_group_id is None:
                     # current_group_idが0もしくはNoneの場合、/joingroupにリダイレクト
                     return redirect(url_for('joingroup.join_group'))
 
+                 # 参加グループidと同じgroupsテーブルの列をすべて取得
                 cursor.execute('SELECT * FROM groups WHERE group_id = ?', (current_group_id,))
                 group = cursor.fetchone()
 
+                # グループが欠けなく入ったら
                 if group:
                     group_data = {
                         'group_name': group[1],
                         'group_id': group[0],
-                        'max_members': group[5]
+                        'max_members': group[5],
+                        'current_members':group[6]
                     }
 
-                    # Add the following lines to get the participant count
-                    cursor.execute('SELECT COUNT(*) FROM users WHERE current_group_id = ?', (current_group_id,))
+                    # 参加者数を取得
+                    cursor.execute('SELECT current_members FROM groups WHERE group_id = ?', (current_group_id,))
                     group_count = cursor.fetchone()[0]
 
-                    # Add the following lines to get the list of participants
+                    # 参加者のリストを取得
                     cursor.execute('SELECT full_name FROM users WHERE current_group_id = ?', (current_group_id,))
                     participants = [{'full_name': row[0]} for row in cursor.fetchall()]
 
-                    # Render the group.html template with the group data, count, and participants
+                    # 参加者数と参加者名とともにgroup.htmlにとぶ
                     return render_template('group.html', group=group_data, group_count=group_count, participants=participants)
                 else:
-                    # Return a response even if group data is not found
+                    # 見つからない場合それぞれにNoneをいれgroup.htmlにとぶ
                     return render_template('group.html', group=None, group_count=None, participants=None)
             else:
                 return jsonify({'success': False, 'error': 'ユーザーはグループに所属していません'})

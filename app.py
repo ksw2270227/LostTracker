@@ -70,7 +70,8 @@ if not os.path.exists(db_path):
 
 @app.route("/")
 def show_urls():
-    print(f"session.get('role'):{session.get('role')}  app:{app.debug}")
+    if(session.get('role')!='Admin'):
+        return redirect(url_for('index.index'))
     # if(session.get('role')=='Admin' and app.debug==False):
     #     print('ok')  
     # else:
@@ -79,6 +80,18 @@ def show_urls():
     user_name = session.get('user_name')
     user_id = session.get('user_id')
     return render_template('list_urls.html', urls=urls, user_name=user_name, user_id=user_id)
+
+# 405 Method Not Allowed エラーハンドラ
+@app.errorhandler(405)
+def method_not_allowed(e):
+    # カスタムエラーメッセージを含む error.html をレンダリング
+    return render_template('error.html', error_message='許可されていないメソッドです。'), 405
+
+# 404 Not Found エラーハンドラ
+@app.errorhandler(404)
+def page_not_found(e):
+    # カスタムエラーメッセージを含む error.html をレンダリング
+    return render_template('error.html', error_message='ページが見つかりません。'), 404
 
 
 if __name__ == "__main__":

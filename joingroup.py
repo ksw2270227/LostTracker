@@ -19,6 +19,20 @@ def update_current_group_id(user_id, new_group_id):
     cursor.close()
     conn.close()
 
+def update_current_group_members(group_id, group_members):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    new_group_members = group_members + 1
+
+    # ユーザーのcurrent_membersを更新するSQL文
+    update_sql = 'UPDATE groups SET current_members = ? WHERE group_id = ?'
+    cursor.execute(update_sql, (new_group_members, group_id))
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
 
 @joingroup_bp.route('/joingroup', methods=['GET', 'POST'])
 def join_group():
@@ -47,11 +61,19 @@ def join_group():
             'SELECT * FROM groups WHERE group_id = ? AND password = ?', (group_id, password)
         )
         group = cursor.fetchone()
+
+        # usersテーブルでcurrent_group_idが入力idと同じものを取得
+        cursor.execute('SELECT COUNT(*) FROM users WHERE current_group_id = ?', (current_group_id,))
         cursor.close()
 
         if group:
+            # 最大人数と参加人数の比較
+            if int(group[5]) <= int(group[6]):
+                error = 'このグループには参加人数が最大のため参加できません。'
+                test = 1
+                return render_template("joingroup.html", error=error, test=test)
             # グループIDをセッションに格納
-            if current_group_id:
+            elif current_group_id:
                 # すでに別のグループに参加している場合のエラーメッセージ
                 error = 'すでに別のグループに参加しています。'
                 test = 1
@@ -64,6 +86,10 @@ def join_group():
 
             # グループに参加したユーザーのcurrent_group_idを更新
             update_current_group_id(user_id, group[0])
+
+            # 参加したグループのcurrent_membersを更新 (group_is, current_members)
+            update_current_group_members(group[0], group[6])
+
 
             # 参加成功時のリダイレクト先（例：groupページ）
             return redirect(url_for('group.group_page'))

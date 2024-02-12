@@ -22,22 +22,35 @@ def event_show(event):
         return render_template("event.html", event_name=event_name, start_time=start_time,
                                end_time=end_time, location=location, event_content=event_content)
     else:
-        flash('イベントが見つかりませんでした。')  # エラーメッセージをフラッシュ
+        error = 'イベントが見つかりませんでした。'
         errorid = 1
-        return render_template("eventparticpation.html",errorid=errorid)  # eventparticpationへリダイレクト
+        return render_template("eventparticpation.html",errorid=errorid, error=error)  # eventparticpationへリダイレクト
 
 @event_bp.route('/event', methods=['GET', 'POST'])
 def event():
     if request.method == 'POST':
-        if session.get('user_id') is None:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        user_id = session.get('user_id')
+
+        if user_id is None:
             return redirect(url_for('login.login_user'))
+        
+        # ユーザーのcurrent_group_idを取得
+        cursor.execute('SELECT current_group_id FROM users WHERE user_id = ?', (user_id,))
+        current_group_id =cursor.fetchone()[0]
+
+        if current_group_id:
+            # すでに別のグループに参加している場合のエラーメッセージ
+            event_id = int(current_group_id)
+            cursor.execute('SELECT * FROM events WHERE event_id = ?', (event_id,))
+            event = cursor.fetchone()
+            return event_show(event)
         
         # イベント参加画面のformから取得
         event_id = request.form['eventidinput']
         password = request.form['passwordinput']
-
-        conn = get_db_connection()
-        cursor = conn.cursor()
 
         # 入力イベントIDと一致するイベントを検索
         cursor.execute('SELECT * FROM events WHERE event_id = ? AND password = ?', (event_id, password))

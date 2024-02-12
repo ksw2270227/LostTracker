@@ -136,7 +136,7 @@ def get_user_status():
 def get_group_users():
     user_id = session.get('user_id')
     if not user_id:
-        print("User not logged in")
+        # print("User not logged in")
         # return jsonify({'error': 'User not logged in'}), 401
         return redirect(url_for('login.login_user'))
 
@@ -147,7 +147,7 @@ def get_group_users():
         # 現在のユーザーのグループIDを取得
         cursor.execute('SELECT current_group_id FROM users WHERE user_id = ?', (user_id,))
         group_id = cursor.fetchone()[0]
-        print("Group ID:", group_id)
+        # print("Group ID:", group_id)
 
         # 同じグループの全ユーザー情報を取得
         cursor.execute('''
@@ -157,10 +157,23 @@ def get_group_users():
             WHERE u.current_group_id = ?
         ''', (group_id,))
         users = cursor.fetchall()
-        print("Group users:", users)
-        return jsonify({'group_users': users})
+        # print("Group users:", users)
+
+        # 各ユーザーに対して位置情報を取得
+        user_locations = []
+        for user in users:
+            cursor.execute('SELECT current_latitude, current_longitude, user_status FROM location_data WHERE user_id = ?', (user[0],))
+            location_data = cursor.fetchone()
+            if location_data:
+                user_locations.append((user[0], user[1], *location_data))
+
+        # 出力
+        # for location in user_locations:
+        #     print(f"({location[0]}, '{location[1]}', {location[2]}, {location[3]}, '{location[4]}')")
+
+        return jsonify({'group_users': user_locations})
     except sqlite3.Error as e:
-        print("Database error:", str(e))
+        # print("Database error:", str(e))
         return jsonify({'error': str(e)}), 500
     finally:
         cursor.close()

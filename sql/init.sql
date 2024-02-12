@@ -81,7 +81,6 @@ CREATE TABLE messages (
     sent_time TEXT NOT NULL,
     FOREIGN KEY (sender_user_id) REFERENCES users(user_id),
     FOREIGN KEY (receiver_user_id) REFERENCES users(user_id),
-
     FOREIGN KEY (sender_user_id) REFERENCES admins(admin_id),
     FOREIGN KEY (sender_user_id) REFERENCES admins(admin_id)
 );
@@ -146,11 +145,11 @@ INSERT INTO companies_employee (company_id, user_id, user_name, full_name, passw
 
 -- `groups` テーブルの初期値を設定
 INSERT INTO groups (group_id, group_name, password, user_id, creation_date, max_members, current_members, event_id) VALUES
-(1, 'Group Alpha', 'grouppass1', 1, '2023-11-17 10:00:00', 10, 5, 1),
-(2, 'Group Beta', 'grouppass2', 2, '2023-11-18 11:00:00', 15, 8, 2),
-(3, 'Group Gamma', 'grouppass3', 3, '2023-11-19 12:00:00', 20, 10, 3),
-(4, 'Group Delta', 'grouppass4', 4, '2023-11-20 13:00:00', 12, 6, 4),
-(5, 'Group Epsilon', 'grouppass5', 5, '2023-11-21 14:00:00', 8, 4, 5);
+(1, 'Group Alpha', 'grouppass1', 1, '2023-11-17 10:00:00', 10, 2, 1),
+(2, 'Group Beta', 'grouppass2', 2, '2023-11-18 11:00:00', 15, 4, 2),
+(3, 'Group Gamma', 'grouppass3', 3, '2023-11-19 12:00:00', 20, 1, 3),
+(4, 'Group Delta', 'grouppass4', 4, '2023-11-20 13:00:00', 12, 1, 4),
+(5, 'Group Epsilon', 'grouppass5', 5, '2023-11-21 14:00:00', 8, 1, 5);
 
 INSERT INTO events (company_id, event_name, event_id, password, start_time, end_time, location, event_content) VALUES
 (1, '新製品発表会', 1, 'eventpass1', '2023-12-01 09:00:00', '2023-12-01 18:00:00', '東京国際フォーラム', '最新技術の展示とデモンストレーション'),

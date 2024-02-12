@@ -1,6 +1,6 @@
 .vscode/
     launch.json
-Flask/
+
     app.py
     autologin.py
     autologout.py

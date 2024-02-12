@@ -114,6 +114,13 @@
           color: #ffffff;
         }
 
+        #under{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
         </style>
     </head>
     <body>
@@ -147,12 +154,14 @@
             {% endif %}
         </main>
         
+        <div id="under">
         <form method="post" action="/chat" id="messageInputContainer">
             <textarea name="message_content" id="messageInput" placeholder="メッセージを入力" rows="1"></textarea>
             <input type="hidden" name="user_url_id" value="{{ user_url_id }}">
             <button name="sendButton" id="sendMessageBtn">送信</button>
         </form>
         <div id="footer"></div>
+        </div>
 
         <script>
             // 前の画面に戻る関数
