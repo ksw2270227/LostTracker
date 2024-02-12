@@ -25,5 +25,5 @@ def index():
         finally:
             conn.close()
 
-    print(f"user_name: {user_name}  user_id: {user_id}")
+   #print(f"user_name: {user_name}  user_id: {user_id}")
     return render_template("index.html", user_name=user_name, user_id=user_id)

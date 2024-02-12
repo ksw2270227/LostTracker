@@ -45,9 +45,9 @@ app.register_blueprint(event_bp)
 try:
     with open('secret_key.txt', 'r') as file:
         app.secret_key = file.read().strip()
-    print("Secret Key set to:", app.secret_key)
+    #print("Secret Key set to:", app.secret_key)
 except Exception as e:
-    print("Error reading secret key file:", e)
+   #print("Error reading secret key file:", e)
 
 def create_db_from_sql(sql_file_path):
     # データベースファイルが存在しない場合、新しいデータベースが自動的に作成される
@@ -73,7 +73,7 @@ def show_urls():
     if(session.get('role')!='Admin'):
         return redirect(url_for('index.index'))
     # if(session.get('role')=='Admin' and app.debug==False):
-    #     print('ok')  
+    #    #print('ok')  
     # else:
     #     return redirect(url_for('index.index'))  
     urls = [{"rule": rule.rule, "endpoint": rule.endpoint} for rule in app.url_map.iter_rules()]

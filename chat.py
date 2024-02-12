@@ -114,7 +114,7 @@ def get_chat_history():
 
         return chat_history
     except Exception as e:
-        print(f"Error fetching chat history: {e}")
+       #print(f"Error fetching chat history: {e}")
         return None
     
 if __name__ == '__main__':

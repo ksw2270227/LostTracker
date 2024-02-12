@@ -27,7 +27,7 @@ def login_user():
             'SELECT * FROM users WHERE email_address = ? AND password = ?',(email_address, password)
         )
         user = cursor.fetchone()
-        print(user)
+       #print(user)
         cursor.close()
         conn.close()
 

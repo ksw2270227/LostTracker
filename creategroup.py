@@ -15,7 +15,7 @@ def create_group():
         return redirect(url_for('login.login_user'))
 
     if request.method == 'POST':
-        print("formからデータを取得します")
+       #print("formからデータを取得します")
         # フォームからデータを受け取り
         group_name = request.form['group_name']
         password = request.form['password']
@@ -34,7 +34,7 @@ def create_group():
         try:
             cursor.execute('SELECT group_id FROM groups WHERE user_id = ?', (user_id,))
             existing_group = cursor.fetchone()
-            print(f"existing_group:{existing_group}")
+           #print(f"existing_group:{existing_group}")
 
             #groupテーブルにデータを挿入
             cursor.execute(
@@ -55,11 +55,11 @@ def create_group():
             #ここまで
         except sqlite3.IntegrityError as e:
             # 重複がある場合の処理
-            print("追加: 重複があります。")
+           #print("追加: 重複があります。")
             conn.rollback()
         else:
             # 重複がない場合の処理
-            print("追加: 成功")
+           #print("追加: 成功")
             conn.commit()
         finally:
             cursor.close()

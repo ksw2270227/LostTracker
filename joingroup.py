@@ -53,8 +53,8 @@ def join_group():
         # ユーザーのcurrent_group_idを取得
         cursor.execute('SELECT current_group_id FROM users WHERE user_id = ?', (user_id,))
         current_group_id =cursor.fetchone()[0]
-        print(f"current_group_id:{current_group_id}")
-        print(f"user_id:{user_id}")
+       #print(f"current_group_id:{current_group_id}")
+       #print(f"user_id:{user_id}")
 
         # グループを検索
         cursor.execute(
@@ -79,7 +79,7 @@ def join_group():
                 test = 1
                 return render_template("joingroup.html", error=error, test=test)
             else:
-                print("false")
+                pass
 
             session['group_id'] = group[0]
             session['group_name'] = group[1]

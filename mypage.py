@@ -15,7 +15,7 @@ def mypage():
 
     if not user_id:
         # ユーザーがログインしていない場合はログインページにリダイレクトkkk
-        print("ログインしてない")
+       #print("ログインしてない")
         return redirect(url_for('login.login_user'))
 
     conn = get_db_connection()
@@ -28,8 +28,8 @@ def mypage():
 
         if user_info:
             # マイページにユーザー情報を渡して表示
-            print("たから")
-            print(user_info)
+           #print("たから")
+           #print(user_info)
             return render_template('mypage.html', user_info=user_info)
         else:
             # ユーザー情報が見つからない場合はエラーを表示
@@ -38,8 +38,8 @@ def mypage():
     except Exception as e:
         # エラーが発生した場合はエラーページを表示
         # return render_template('error.html', message=str(e))
-        print(e)
-        print("なんかエラーでた")
+       #print(e)
+       #print("なんかエラーでた")
         return redirect(url_for('index.index'))
 
     finally:
@@ -72,7 +72,7 @@ def withdrawal():
 
     except Exception as e:
         flash('エラーが発生しました。', 'error')
-        print(e)
+       #print(e)
         return redirect(url_for('index.index'))
 
     finally:

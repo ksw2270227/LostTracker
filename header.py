@@ -40,7 +40,7 @@ header_bp = Blueprint('header', __name__)
 @header_bp.route('*', methods=['GET', 'POST'])
 def header():
     user_id = int(session.get('user_id'))
-    print(f"user_id: {user_id}")
+   #print(f"user_id: {user_id}")
     return render_template('header.html', user_id=user_id)
 
 # @chat_bp.route('/chat', methods=['GET', 'POST'])

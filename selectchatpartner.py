@@ -60,5 +60,5 @@ def get_users_with_latest_chat():
 
         return users
     except Exception as e:
-        print(f"ユーザーと最新のチャットを取得する際にエラーが発生しました: {e}")
+       #print(f"ユーザーと最新のチャットを取得する際にエラーが発生しました: {e}")
         return None
