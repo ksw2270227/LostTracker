@@ -69,22 +69,21 @@
             <th>current_event_id</th>
             <th>current_group_id</th>
             <th>user_status</th>
-            <th>編集</th>
+            
         </tr>
         {% for user in users %}
         <tr>
-            <td><input type="text" name="user_id" value="{{ user[0] }}" readonly></td>
-            <td><input type="text" name="user_name" value="{{ user[1] }}"></td>
-            <td><input type="text" name="full_name" value="{{ user[2] }}"></td>
-            <td><input type="text" name="phone_number" value="{{ user[3] }}"></td>
-            <td><input type="text" name="email_address" value="{{ user[4] }}"></td>
-            <td><input type="text" name="password" value="{{ user[5] }}"></td>
-            <td><input type="text" name="age" value="{{ user[6] }}"></td>
-            <td><input type="text" name="gender" value="{{ user[7] }}"></td>
-            <td><input type="text" name="current_event_id" value="{{ user[8] }}"></td>
-            <td><input type="text" name="current_group_id" value="{{ user[9] }}"></td>
-            <td><input type="text" name="user_status" value="{{ user[10] }}"></td>
-            <td><button onclick="editRow(this, 'users', '{{ user[0] }}')">変更</button></td> 
+            <td><a name="user_id" >{{ user[0] }} </a></td>
+            <td><a name="user_name" >{{ user[1] }}</a></td>
+            <td><a name="full_name" >{{ user[2] }}</a></td>
+            <td><a name="phone_number" >{{ user[3] }}</a></td>
+            <td><a name="email_address" >{{ user[4] }}</a></td>
+            <td><a name="password" >{{ user[5] }}</a></td>
+            <td><a name="age" >{{ user[6] }}</a></td>
+            <td><a name="gender" >{{ user[7] }}</a></td>
+            <td><a name="current_event_id" >{{ user[8] }}</a></td>
+            <td><a name="current_group_id" >{{ user[9] }}</a></td>
+            <td><a name="user_status" >{{ user[10] }}</a></td>
         </tr>
         {% endfor %}
     </table>
@@ -97,16 +96,15 @@
         <th>password</th>
         <th>full_name</th>
         <th>email_address</th>
-        <th>編集</th>
+        
     </tr>
     {% for admin in admins %}
     <tr>
-        <td><input type="text" name="user_id" value="{{ admin[0] }}" readonly></td>
-        <td><input type="text" name="user_name" value="{{ admin[1] }}"></td>
-        <td><input type="text" name="password" value="{{ admin[2] }}"></td>
-        <td><input type="text" name="full_name" value="{{ admin[3] }}"></td>
-        <td><input type="text" name="email_address" value="{{ admin[4] }}"></td>
-        <td><button onclick="editRow(this, 'admins', '{{ admin[0] }}')">変更</button></td> 
+        <td><a name="user_id" >{{ admin[0] }} </a></td>
+        <td><a name="user_name" >{{ admin[1] }}</a></td>
+        <td><a name="password" >{{ admin[2] }}</a></td>
+        <td><a name="full_name" >{{ admin[3] }}</a></td>
+        <td><a name="email_address" >{{ admin[4] }}</a></td>
     </tr>
     {% endfor %}
     </table>
@@ -120,17 +118,16 @@
         <th>address</th>
         <th>phone_number</th>
         <th>email_address</th>
-        <th>編集</th>
+        
     </tr>
     {% for company in companies %}
     <tr>
-        <td><input type="text" name="company_id" value="{{ company[0] }}" readonly></td>
-        <td><input type="text" name="company_name" value="{{ company[1] }}"></td>
-        <td><input type="text" name="company_password" value="{{ company[2] }}"></td>
-        <td><input type="text" name="address" value="{{ company[3] }}"></td>
-        <td><input type="text" name="phone_number" value="{{ company[4] }}"></td>
-        <td><input type="text" name="email_address" value="{{ company[5] }}"></td>
-        <td><button onclick="editRow(this, 'companies', '{{ company[0] }}')">変更</button></td> 
+        <td><a name="company_id" >{{ company[0] }} </a></td>
+        <td><a name="company_name" >{{ company[1] }}</a></td>
+        <td><a name="company_password" >{{ company[2] }}</a></td>
+        <td><a name="address" >{{ company[3] }}</a></td>
+        <td><a name="phone_number" >{{ company[4] }}</a></td>
+        <td><a name="email_address" >{{ company[5] }}</a></td>
     </tr>
     {% endfor %}
     </table>
@@ -144,17 +141,16 @@
         <th>full_name</th>
         <th>password</th>
         <th>email_address</th>
-        <th>編集</th>
+        
     </tr>
     {% for employee in companies_employee %}
     <tr>
-        <td><input type="text" name="company_id" value="{{ employee[0] }}" readonly></td>
-        <td><input type="text" name="user_id" value="{{ employee[1] }}" readonly></td>
-        <td><input type="text" name="user_name" value="{{ employee[2] }}"></td>
-        <td><input type="text" name="full_name" value="{{ employee[3] }}"></td>
-        <td><input type="text" name="password" value="{{ employee[4] }}"></td>
-        <td><input type="text" name="email_address" value="{{ employee[5] }}"></td>
-        <td><button onclick="editRow(this, 'companies_employee', '{{ employee[0] }}')">変更</button></td> 
+        <td><a name="company_id" >{{ employee[0] }} </a></td>
+        <td><a name="user_id" >{{ employee[1] }} </a></td>
+        <td><a name="user_name" >{{ employee[2] }}</a></td>
+        <td><a name="full_name" >{{ employee[3] }}</a></td>
+        <td><a name="password" >{{ employee[4] }}</a></td>
+        <td><a name="email_address" >{{ employee[5] }}</a></td>
     </tr>
     {% endfor %}
     </table>
@@ -170,19 +166,18 @@
         <th>max_members</th>
         <th>current_members</th>
         <th>event_id</th>
-        <th>編集</th>
+        
     </tr>
     {% for group in groups %}
     <tr>
-        <td><input type="text" name="group_id" value="{{ group[0] }}" readonly></td>
-        <td><input type="text" name="group_name" value="{{ group[1] }}"></td>
-        <td><input type="text" name="password" value="{{ group[2] }}"></td>
-        <td><input type="text" name="user_id" value="{{ group[3] }}"></td>
-        <td><input type="text" name="creation_date" value="{{ group[4] }}" readonly></td>
-        <td><input type="text" name="max_members" value="{{ group[5] }}"></td>
-        <td><input type="text" name="current_members" value="{{ group[6] }}" readonly></td>
-        <td><input type="text" name="event_id" value="{{ group[7] }}"></td>
-        <td><button onclick="editRow(this, 'groups', '{{ group[0] }}')">変更</button></td> 
+        <td><a name="group_id" >{{ group[0] }} </a></td>
+        <td><a name="group_name" >{{ group[1] }}</a></td>
+        <td><a name="password" >{{ group[2] }}</a></td>
+        <td><a name="user_id" >{{ group[3] }}</a></td>
+        <td><a name="creation_date" >{{ group[4] }} </a></td>
+        <td><a name="max_members" >{{ group[5] }}</a></td>
+        <td><a name="current_members" >{{ group[6] }} </a></td>
+        <td><a name="event_id" >{{ group[7] }}</a></td>
     </tr>
     {% endfor %}
     </table>
@@ -198,19 +193,18 @@
         <th>end_time</th>
         <th>location</th>
         <th>event_content</th>
-        <th>編集</th>
+        
     </tr>
     {% for event in events %}
     <tr>
-        <td><input type="text" name="company_id" value="{{ event[0] }}" readonly></td>
-        <td><input type="text" name="event_name" value="{{ event[1] }}"></td>
-        <td><input type="text" name="event_id" value="{{ event[2] }}" readonly></td>
-        <td><input type="text" name="password" value="{{ event[3] }}"></td>
-        <td><input type="text" name="start_time" value="{{ event[4] }}"></td>
-        <td><input type="text" name="end_time" value="{{ event[5] }}"></td>
-        <td><input type="text" name="location" value="{{ event[6] }}"></td>
-        <td><input type="text" name="event_content" value="{{ event[7] }}"></td>
-        <td><button onclick="editRow(this, 'events', '{{ event[0] }}')">変更</button></td> 
+        <td><a name="company_id" >{{ event[0] }} </a></td>
+        <td><a name="event_name" >{{ event[1] }}</a></td>
+        <td><a name="event_id" >{{ event[2] }} </a></td>
+        <td><a name="password" >{{ event[3] }}</a></td>
+        <td><a name="start_time" >{{ event[4] }}</a></td>
+        <td><a name="end_time" >{{ event[5] }}</a></td>
+        <td><a name="location" >{{ event[6] }}</a></td>
+        <td><a name="event_content" >{{ event[7] }}</a></td>
     </tr>
     {% endfor %}
     </table>
@@ -225,18 +219,17 @@
         <th>receiver_role</th>
         <th>message_content</th>
         <th>sent_time</th>
-        <th>編集</th>
+        
     </tr>
     {% for message in messages %}
     <tr>
-        <td><input type="text" name="message_id" value="{{ message[0] }}" readonly></td>
-        <td><input type="text" name="sender_user_id" value="{{ message[1] }}"></td>
-        <td><input type="text" name="sender_role" value="{{ message[2] }}"></td>
-        <td><input type="text" name="receiver_user_id" value="{{ message[3] }}"></td>
-        <td><input type="text" name="receiver_role" value="{{ message[4] }}"></td>
-        <td><input type="text" name="message_content" value="{{ message[5] }}"></td>
-        <td><input type="text" name="sent_time" value="{{ message[6] }}" readonly></td>
-        <td><button onclick="editRow(this, 'messages', '{{ message[0] }}')">変更</button></td> 
+        <td><a name="message_id" >{{ message[0] }} </a></td>
+        <td><a name="sender_user_id" >{{ message[1] }}</a></td>
+        <td><a name="sender_role" >{{ message[2] }}</a></td>
+        <td><a name="receiver_user_id" >{{ message[3] }}</a></td>
+        <td><a name="receiver_role" >{{ message[4] }}</a></td>
+        <td><a name="message_content" >{{ message[5] }}</a></td>
+        <td><a name="sent_time" >{{ message[6] }} </a></td>
     </tr>
     {% endfor %}
     </table>
@@ -250,17 +243,16 @@
         <th>current_longitude</th>
         <th>current_altitude</th>
         <th>acquisition_time</th>
-        <th>編集</th>
+        
     </tr>
     {% for location in location_data %}
     <tr>
-        <td><input type="text" name="user_id" value="{{ location[0] }}" readonly></td>
-        <td><input type="text" name="user_status" value="{{ location[1] }}"></td>
-        <td><input type="text" name="current_latitude" value="{{ location[2] }}"></td>
-        <td><input type="text" name="current_longitude" value="{{ location[3] }}"></td>
-        <td><input type="text" name="current_altitude" value="{{ location[4] }}"></td>
-        <td><input type="text" name="acquisition_time" value="{{ location[5] }}" readonly></td>
-        <td><button onclick="editRow(this, 'locations', '{{ location[0] }}')">変更</button></td> 
+        <td><a name="user_id" >{{ location[0] }} </a></td>
+        <td><a name="user_status" >{{ location[1] }}</a></td>
+        <td><a name="current_latitude" >{{ location[2] }}</a></td>
+        <td><a name="current_longitude" >{{ location[3] }}</a></td>
+        <td><a name="current_altitude" >{{ location[4] }}</a></td>
+        <td><a name="acquisition_time" >{{ location[5] }} </a></td>
     </tr>
     {% endfor %}
     </table>
@@ -274,17 +266,16 @@
         <th>altitude</th>
         <th>acquisition_time</th>
         <th>user_status</th>
-        <th>編集</th>
+        
     </tr>
     {% for history in location_history %}
     <tr>
-        <td><input type="text" name="user_id" value="{{ history[0] }}" readonly></td>
-        <td><input type="text" name="latitude" value="{{ history[1] }}"></td>
-        <td><input type="text" name="longitude" value="{{ history[2] }}"></td>
-        <td><input type="text" name="altitude" value="{{ history[3] }}"></td>
-        <td><input type="text" name="acquisition_time" value="{{ history[4] }}" readonly></td>
-        <td><input type="text" name="user_status" value="{{ history[5] }}"></td>
-        <td><button onclick="editRow(this, 'location_history', '{{ history[0] }}')">変更</button></td> 
+        <td><a name="user_id" >{{ history[0] }} </a></td>
+        <td><a name="latitude" >{{ history[1] }}</a></td>
+        <td><a name="longitude" >{{ history[2] }}</a></td>
+        <td><a name="altitude" >{{ history[3] }}</a></td>
+        <td><a name="acquisition_time" >{{ history[4] }} </a></td>
+        <td><a name="user_status" >{{ history[5] }}</a></td>
     </tr>
     {% endfor %}
     </table>
