@@ -111,15 +111,15 @@ CREATE TABLE location_history (
 
 -- `users` テーブルの初期値を設定
 INSERT INTO users (user_id, user_name, full_name, phone_number, email_address, password, age, gender, current_event_id, current_group_id, user_status) VALUES
-(1, 'hanako123', '花子 山田', '090-1234-5678', 'hanako@example.com', 'pass1234', 28, '女性', 3, 1, '通常'),
-(2, 'taro2023', '太郎 佐藤', '080-9876-5432', 'taro@example.com', 'pass2023', 32, '男性', 1, 2, '待機'),
-(3, 'sakura_flower', 'さくら 鈴木', '070-1111-2222', 'sakura@example.com', 'sakura123', 25, '女性', 2, 3, '迷子'),
-(4, 'yamamoto_k', '健一 山本', '075-3333-4444', 'yamamoto@example.com', 'yama2024', 45, '男性', 4, 4, '緊急'),
-(5, 'akira_tech', '明 秋田', '092-5555-6666', 'akira@example.com', 'akira5678', 30, '男性', 5, 5, '通常'),
+(1, 'hanako123', '山田 花子', '090-1234-5678', 'hanako@example.com', 'pass1234', 28, '女性', 3, 1, '通常'),
+(2, 'taro2023', '佐藤 太郎', '080-9876-5432', 'taro@example.com', 'pass2023', 32, '男性', 1, 2, '待機'),
+(3, 'sakura_flower', '鈴木 さくら', '070-1111-2222', 'sakura@example.com', 'sakura123', 25, '女性', 2, 3, '迷子'),
+(4, 'yamamoto_k', '山本 健一', '075-3333-4444', 'yamamoto@example.com', 'yama2024', 45, '男性', 4, 4, '緊急'),
+(5, 'akira_tech', '秋田 明', '092-5555-6666', 'akira@example.com', 'akira5678', 30, '男性', 5, 5, '通常'),
 (6, 'some123', '染 谷', '030-1334-3378', 'someya@example.com', 'pass12345', 111, '男性', 3, 1, '通常'),
-(7, 'miyuki_star', '美幸 伊藤', '091-2345-6789', 'miyuki@example.com', 'miyu1234', 27, '女性', 2, 2, '待機'),
-(8, 'hiroki_pro', '博樹 中村', '081-9876-5433', 'hiroki@example.com', 'hiro2023', 33, '男性', 1, 2, '迷子'),
-(9, 'ayumi_sky', 'あゆみ 小林', '071-1111-2233', 'ayumi@example.com', 'ayu12345', 26, '女性', 3, 2, '通常');
+(7, 'miyuki_star', '伊藤 美幸', '091-2345-6789', 'miyuki@example.com', 'miyu1234', 27, '女性', 2, 2, '待機'),
+(8, 'hiroki_pro', '中村 博樹', '081-9876-5433', 'hiroki@example.com', 'hiro2023', 33, '男性', 1, 2, '迷子'),
+(9, 'ayumi_sky', '小林 あゆみ', '071-1111-2233', 'ayumi@example.com', 'ayu12345', 26, '女性', 3, 2, '通常');
 
 
 INSERT INTO admins (user_id, user_name, password, full_name, email_address) VALUES
