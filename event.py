@@ -37,17 +37,6 @@ def event():
         if user_id is None:
             return redirect(url_for('login.login_user'))
         
-        # ユーザーのcurrent_group_idを取得
-        cursor.execute('SELECT current_group_id FROM users WHERE user_id = ?', (user_id,))
-        current_group_id =cursor.fetchone()[0]
-
-        if current_group_id:
-            # すでに別のグループに参加している場合のエラーメッセージ
-            event_id = int(current_group_id)
-            cursor.execute('SELECT * FROM events WHERE event_id = ?', (event_id,))
-            event = cursor.fetchone()
-            return event_show(event)
-        
         # イベント参加画面のformから取得
         event_id = request.form['eventidinput']
         password = request.form['passwordinput']
